@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [form, setForm] = useState({
@@ -52,7 +53,11 @@ export default function Home() {
 
   return (
     <main className="container">
-      <h1>Dashboard - Listado de equipos</h1>
+      <h1 style={{color:'var(--accent)'}}>Dashboard - Listado de equipos</h1>
+      <div className="tabs">
+        <a className="tab active">Formulario</a>
+        <Link href="/list"><a className="tab">Listado</a></Link>
+      </div>
       <div className="card">
         <form onSubmit={onSubmit} className="form">
           <label>
