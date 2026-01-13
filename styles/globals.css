@@ -28,3 +28,4 @@ button{background:var(--accent);color:#fff;padding:10px 14px;border-radius:6px;b
 .row-click{cursor:pointer}
 .row-click:hover{background:#f3f8ff}
 .detail{margin-top:12px;padding:12px;border-radius:8px;background:linear-gradient(180deg,#ffffff,#fbfdff);box-shadow:0 1px 3px rgba(16,24,40,0.04)}
+.small{background:#0b70d0;color:#fff;padding:6px 8px;border-radius:6px;border:0;cursor:pointer}

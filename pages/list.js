@@ -49,19 +49,51 @@ export default function ListPage() {
               </tr>
             </thead>
             <tbody>
-              {rows.map((r, i) => {
+              {rows.slice(1).map((r, idx) => {
+                // rows returned map to sheet rows starting at 1; slice(1) skips header
                 const disco = [r[6], r[7]].filter(Boolean).join(', ');
                 const memoria = [r[4], r[5]].filter(Boolean).join(', ');
                 const fecha = (r[10] || '').toString().split('T')[0];
+                const status = r[11] || '';
+                const sheetRowNumber = idx + 2; // because slice(1)
                 return (
-                <tr key={i} onClick={() => setSelected(r)} className="row-click">
-                  <td>{r[0]}</td>
-                  <td>{r[1]}</td>
-                  <td>{r[3]}</td>
-                  <td>{disco}</td>
-                  <td>{memoria}</td>
-                  <td>{r[8]}</td>
-                  <td>{fecha}</td>
+                <tr key={idx} className="row-click">
+                  <td onClick={() => setSelected(r)}>{r[0]}</td>
+                  <td onClick={() => setSelected(r)}>{r[1]}</td>
+                  <td onClick={() => setSelected(r)}>{r[3]}</td>
+                  <td onClick={() => setSelected(r)}>{disco}</td>
+                  <td onClick={() => setSelected(r)}>{memoria}</td>
+                  <td onClick={() => setSelected(r)}>{r[8]}</td>
+                  <td onClick={() => setSelected(r)}>{fecha}</td>
+                  <td>
+                    {status ? (
+                      <span style={{color:'#0b7a3d'}}>{status}</span>
+                    ) : (
+                      <button className="small" onClick={async () => {
+                        try {
+                          const res = await fetch('/api/mark-ready', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ row: sheetRowNumber })
+                          });
+                          if (res.ok) {
+                            // update local state
+                            const copy = [...rows];
+                            copy[idx+1] = copy[idx+1] || [];
+                            copy[idx+1][11] = 'Listo para entrega';
+                            setRows(copy);
+                          } else {
+                            const j = await res.json();
+                            console.error(j);
+                            alert('Error marcando como listo: '+(j.error||res.statusText));
+                          }
+                        } catch (e) {
+                          console.error(e);
+                          alert('Error de red');
+                        }
+                      }}>Marcar listo</button>
+                    )}
+                  </td>
                 </tr>
               )})}
             </tbody>
