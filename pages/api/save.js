@@ -17,7 +17,8 @@ export default async function handler(req, res) {
       data.disco2 || '',
       data.cliente || '',
       data.tecnico || '',
-      new Date().toISOString()
+      // Guardar solo la fecha en formato YYYY-MM-DD
+      new Date().toISOString().split('T')[0]
     ];
 
     await appendRow(row);

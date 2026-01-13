@@ -42,22 +42,28 @@ export default function ListPage() {
                 <th>GLPI</th>
                 <th>Activo</th>
                 <th>Serial</th>
+                <th>Disco</th>
+                <th>Memoria</th>
                 <th>Cliente</th>
-                <th>Técnico</th>
                 <th>Fecha</th>
               </tr>
             </thead>
             <tbody>
-              {rows.map((r, i) => (
+              {rows.map((r, i) => {
+                const disco = [r[6], r[7]].filter(Boolean).join(', ');
+                const memoria = [r[4], r[5]].filter(Boolean).join(', ');
+                const fecha = (r[10] || '').toString().split('T')[0];
+                return (
                 <tr key={i} onClick={() => setSelected(r)} className="row-click">
                   <td>{r[0]}</td>
                   <td>{r[1]}</td>
                   <td>{r[3]}</td>
+                  <td>{disco}</td>
+                  <td>{memoria}</td>
                   <td>{r[8]}</td>
-                  <td>{r[9]}</td>
-                  <td>{r[10]}</td>
+                  <td>{fecha}</td>
                 </tr>
-              ))}
+              )})}
             </tbody>
           </table>
         )}
@@ -70,13 +76,11 @@ export default function ListPage() {
               <li><strong>Activo:</strong> {selected[1]}</li>
               <li><strong>Monitor:</strong> {selected[2]}</li>
               <li><strong>Serial:</strong> {selected[3]}</li>
-              <li><strong>Memoria1:</strong> {selected[4]}</li>
-              <li><strong>Memoria2:</strong> {selected[5]}</li>
-              <li><strong>Disco1:</strong> {selected[6]}</li>
-              <li><strong>Disco2:</strong> {selected[7]}</li>
+              <li><strong>Memoria:</strong> {[selected[4], selected[5]].filter(Boolean).join(', ')}</li>
+              <li><strong>Disco:</strong> {[selected[6], selected[7]].filter(Boolean).join(', ')}</li>
               <li><strong>Cliente:</strong> {selected[8]}</li>
               <li><strong>Técnico:</strong> {selected[9]}</li>
-              <li><strong>Fecha:</strong> {selected[10]}</li>
+              <li><strong>Fecha:</strong> {(selected[10]||'').toString().split('T')[0]}</li>
             </ul>
             <div style={{marginTop:12}}>
               <button onClick={() => setSelected(null)}>Cerrar</button>
