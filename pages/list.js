@@ -77,10 +77,9 @@ export default function ListPage() {
                             body: JSON.stringify({ row: sheetRowNumber })
                           });
                           if (res.ok) {
-                            // update local state
+                            // Remover la fila del estado local
                             const copy = [...rows];
-                            copy[idx+1] = copy[idx+1] || [];
-                            copy[idx+1][11] = 'Listo para entrega';
+                            copy.splice(idx+1, 1);
                             setRows(copy);
                           } else {
                             const j = await res.json();
