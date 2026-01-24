@@ -42,17 +42,17 @@ export default function ListPage() {
                 <th>GLPI</th>
                 <th>Activo</th>
                 <th>Serial</th>
-                <th>Disco</th>
-                <th>Memoria</th>
+                <th>Disco 1</th>
+                <th>Disco 2</th>
+                <th>Memoria 1</th>
+                <th>Memoria 2</th>
                 <th>Cliente</th>
                 <th>Fecha</th>
+                <th>Acción</th>
               </tr>
             </thead>
             <tbody>
               {rows.slice(1).map((r, idx) => {
-                // rows returned map to sheet rows starting at 1; slice(1) skips header
-                const disco = [r[6], r[7]].filter(Boolean).join(', ');
-                const memoria = [r[4], r[5]].filter(Boolean).join(', ');
                 const fecha = (r[10] || '').toString().split('T')[0];
                 const status = r[11] || '';
                 const sheetRowNumber = idx + 2; // because slice(1)
@@ -61,8 +61,10 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[0]}</td>
                   <td onClick={() => setSelected(r)}>{r[1]}</td>
                   <td onClick={() => setSelected(r)}>{r[3]}</td>
-                  <td onClick={() => setSelected(r)}>{disco}</td>
-                  <td onClick={() => setSelected(r)}>{memoria}</td>
+                  <td onClick={() => setSelected(r)}>{r[6]}</td>
+                  <td onClick={() => setSelected(r)}>{r[7]}</td>
+                  <td onClick={() => setSelected(r)}>{r[4]}</td>
+                  <td onClick={() => setSelected(r)}>{r[5]}</td>
                   <td onClick={() => setSelected(r)}>{r[8]}</td>
                   <td onClick={() => setSelected(r)}>{fecha}</td>
                   <td>
