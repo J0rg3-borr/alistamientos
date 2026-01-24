@@ -61,10 +61,10 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[0]}</td>
                   <td onClick={() => setSelected(r)}>{r[1]}</td>
                   <td onClick={() => setSelected(r)}>{r[3]}</td>
-                  <td onClick={() => setSelected(r)}>{r[10]}</td>
-                  <td onClick={() => setSelected(r)}>{r[13]}</td>
-                  <td onClick={() => setSelected(r)}>{r[4]}</td>
-                  <td onClick={() => setSelected(r)}>{r[7]}</td>
+                  <td onClick={() => setSelected(r)}>{r[10]} (Cap: {r[11]}, Act: {r[12]})</td>
+                  <td onClick={() => setSelected(r)}>{r[13]} (Cap: {r[14]}, Act: {r[15]})</td>
+                  <td onClick={() => setSelected(r)}>{r[4]} (Cap: {r[5]}, Act: {r[6]})</td>
+                  <td onClick={() => setSelected(r)}>{r[7]} (Cap: {r[8]}, Act: {r[9]})</td>
                   <td onClick={() => setSelected(r)}>{r[16]}</td>
                   <td onClick={() => setSelected(r)}>{fecha}</td>
                   <td>
