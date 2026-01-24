@@ -3,7 +3,12 @@ import Link from 'next/link';
 
 export default function Home() {
   const [form, setForm] = useState({
-    glpi: '', activo: '', monitor: '', serial: '', memoria1: '', memoria2: '', disco1: '', disco2: '', cliente: '', tecnico: ''
+    glpi: '', activo: '', monitor: '', serial: '', 
+    memoria1: '', memoria1_capacidad: '', memoria1_activo: '',
+    memoria2: '', memoria2_capacidad: '', memoria2_activo: '',
+    disco1: '', disco1_capacidad: '', disco1_activo: '',
+    disco2: '', disco2_capacidad: '', disco2_activo: '',
+    cliente: '', tecnico: ''
   });
   const [status, setStatus] = useState(null);
   const [errors, setErrors] = useState({});
@@ -41,7 +46,12 @@ export default function Home() {
       const json = await res.json();
       if (res.ok) {
         setStatus('Guardado correctamente');
-        setForm({ glpi: '', activo: '', monitor: '', serial: '', memoria1: '', memoria2: '', disco1: '', disco2: '', cliente: '', tecnico: '' });
+        setForm({ glpi: '', activo: '', monitor: '', serial: '', 
+          memoria1: '', memoria1_capacidad: '', memoria1_activo: '',
+          memoria2: '', memoria2_capacidad: '', memoria2_activo: '',
+          disco1: '', disco1_capacidad: '', disco1_activo: '',
+          disco2: '', disco2_capacidad: '', disco2_activo: '',
+          cliente: '', tecnico: '' });
         setErrors({});
       } else {
         setStatus('Error: ' + (json.error || res.statusText));
@@ -89,11 +99,27 @@ export default function Home() {
                 Memoria 1
                 <input name="memoria1" value={form.memoria1} onChange={onChange} />
               </label>
+              <label>
+                Capacidad Memoria 1
+                <input name="memoria1_capacidad" value={form.memoria1_capacidad} onChange={onChange} />
+              </label>
+              <label>
+                Activo Memoria 1
+                <input name="memoria1_activo" value={form.memoria1_activo} onChange={onChange} />
+              </label>
             </div>
             <div className="col">
               <label>
                 Memoria 2
                 <input name="memoria2" value={form.memoria2} onChange={onChange} />
+              </label>
+              <label>
+                Capacidad Memoria 2
+                <input name="memoria2_capacidad" value={form.memoria2_capacidad} onChange={onChange} />
+              </label>
+              <label>
+                Activo Memoria 2
+                <input name="memoria2_activo" value={form.memoria2_activo} onChange={onChange} />
               </label>
             </div>
           </div>
@@ -104,11 +130,27 @@ export default function Home() {
                 Disco 1
                 <input name="disco1" value={form.disco1} onChange={onChange} />
               </label>
+              <label>
+                Capacidad Disco 1
+                <input name="disco1_capacidad" value={form.disco1_capacidad} onChange={onChange} />
+              </label>
+              <label>
+                Activo Disco 1
+                <input name="disco1_activo" value={form.disco1_activo} onChange={onChange} />
+              </label>
             </div>
             <div className="col">
               <label>
                 Disco 2
                 <input name="disco2" value={form.disco2} onChange={onChange} />
+              </label>
+              <label>
+                Capacidad Disco 2
+                <input name="disco2_capacidad" value={form.disco2_capacidad} onChange={onChange} />
+              </label>
+              <label>
+                Activo Disco 2
+                <input name="disco2_activo" value={form.disco2_activo} onChange={onChange} />
               </label>
             </div>
           </div>

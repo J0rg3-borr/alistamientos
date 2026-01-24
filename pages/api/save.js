@@ -5,16 +5,24 @@ export default async function handler(req, res) {
 
   try {
     const data = req.body;
-    // Orden de columnas: GLPI, Activo, Monitor, Serial, Memoria1, Memoria2, Disco1, Disco2, Cliente, Tecnico, Fecha
+    // Orden de columnas: GLPI, Activo, Monitor, Serial, Memoria1, Memoria1_Capacidad, Memoria1_Activo, Memoria2, Memoria2_Capacidad, Memoria2_Activo, Disco1, Disco1_Capacidad, Disco1_Activo, Disco2, Disco2_Capacidad, Disco2_Activo, Cliente, Tecnico, Fecha
     const row = [
       data.glpi || '',
       data.activo || '',
       data.monitor || '',
       data.serial || '',
       data.memoria1 || '',
+      data.memoria1_capacidad || '',
+      data.memoria1_activo || '',
       data.memoria2 || '',
+      data.memoria2_capacidad || '',
+      data.memoria2_activo || '',
       data.disco1 || '',
+      data.disco1_capacidad || '',
+      data.disco1_activo || '',
       data.disco2 || '',
+      data.disco2_capacidad || '',
+      data.disco2_activo || '',
       data.cliente || '',
       data.tecnico || '',
       // Guardar solo la fecha en formato YYYY-MM-DD

@@ -53,19 +53,19 @@ export default function ListPage() {
             </thead>
             <tbody>
               {rows.slice(1).map((r, idx) => {
-                const fecha = (r[10] || '').toString().split('T')[0];
-                const status = r[11] || '';
+                const fecha = (r[18] || '').toString().split('T')[0];
+                const status = r[19] || '';
                 const sheetRowNumber = idx + 2; // because slice(1)
                 return (
                 <tr key={idx} className="row-click">
                   <td onClick={() => setSelected(r)}>{r[0]}</td>
                   <td onClick={() => setSelected(r)}>{r[1]}</td>
                   <td onClick={() => setSelected(r)}>{r[3]}</td>
-                  <td onClick={() => setSelected(r)}>{r[6]}</td>
-                  <td onClick={() => setSelected(r)}>{r[7]}</td>
+                  <td onClick={() => setSelected(r)}>{r[10]}</td>
+                  <td onClick={() => setSelected(r)}>{r[13]}</td>
                   <td onClick={() => setSelected(r)}>{r[4]}</td>
-                  <td onClick={() => setSelected(r)}>{r[5]}</td>
-                  <td onClick={() => setSelected(r)}>{r[8]}</td>
+                  <td onClick={() => setSelected(r)}>{r[7]}</td>
+                  <td onClick={() => setSelected(r)}>{r[16]}</td>
                   <td onClick={() => setSelected(r)}>{fecha}</td>
                   <td>
                     {status ? (
@@ -109,11 +109,13 @@ export default function ListPage() {
               <li><strong>Activo:</strong> {selected[1]}</li>
               <li><strong>Monitor:</strong> {selected[2]}</li>
               <li><strong>Serial:</strong> {selected[3]}</li>
-              <li><strong>Memoria:</strong> {[selected[4], selected[5]].filter(Boolean).join(', ')}</li>
-              <li><strong>Disco:</strong> {[selected[6], selected[7]].filter(Boolean).join(', ')}</li>
-              <li><strong>Cliente:</strong> {selected[8]}</li>
-              <li><strong>Técnico:</strong> {selected[9]}</li>
-              <li><strong>Fecha:</strong> {(selected[10]||'').toString().split('T')[0]}</li>
+              <li><strong>Memoria 1:</strong> {selected[4]} (Cap: {selected[5]}, Act: {selected[6]})</li>
+              <li><strong>Memoria 2:</strong> {selected[7]} (Cap: {selected[8]}, Act: {selected[9]})</li>
+              <li><strong>Disco 1:</strong> {selected[10]} (Cap: {selected[11]}, Act: {selected[12]})</li>
+              <li><strong>Disco 2:</strong> {selected[13]} (Cap: {selected[14]}, Act: {selected[15]})</li>
+              <li><strong>Cliente:</strong> {selected[16]}</li>
+              <li><strong>Técnico:</strong> {selected[17]}</li>
+              <li><strong>Fecha:</strong> {(selected[18]||'').toString().split('T')[0]}</li>
             </ul>
             <div style={{marginTop:12}}>
               <button onClick={() => setSelected(null)}>Cerrar</button>
