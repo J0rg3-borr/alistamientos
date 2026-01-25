@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
   try {
     const data = req.body;
-    // Orden de columnas: GLPI, Activo, Pantalla, Número de Serie, Memoria1, Memoria1_Capacidad, Memoria1_Activo, Memoria2, Memoria2_Capacidad, Memoria2_Activo, Disco1, Disco1_Capacidad, Disco1_Activo, Disco2, Disco2_Capacidad, Disco2_Activo, Cliente, Técnico, Fecha, Status
+    // Orden de columnas: GLPI, Activo, Pantalla, Número de Serie, Memoria1, Memoria1_Capacidad, Memoria1_Activo, Memoria2, Memoria2_Capacidad, Memoria2_Activo, Disco1, Disco1_Capacidad, Disco1_Activo, Disco2, Disco2_Capacidad, Disco2_Activo, Cliente, Técnico, Fecha
     const row = [
       data.glpi || '',
       data.activo || '',
@@ -26,8 +26,7 @@ export default async function handler(req, res) {
       data.cliente || '',
       data.tecnico || '',
       // Guardar solo la fecha en formato YYYY-MM-DD
-      new Date().toISOString().split('T')[0],
-      '' // Status vacío inicialmente
+      new Date().toISOString().split('T')[0]
     ];
 
     await appendRow(row);
