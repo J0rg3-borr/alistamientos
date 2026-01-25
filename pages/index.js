@@ -22,7 +22,6 @@ export default function Home() {
     const err = {};
     if (!form.glpi) err.glpi = 'GLPI es requerido';
     if (!form.activo) err.activo = 'Activo es requerido';
-    if (!form.serial) err.serial = 'Serial es requerido';
     if (!form.cliente) err.cliente = 'Cliente es requerido';
     if (!form.tecnico) err.tecnico = 'Técnico es requerido';
     return err;
