@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Home() {
   const [form, setForm] = useState({
-    glpi: '', activo: '', monitor: '', serial: '', 
+    glpi: '', activo: '', pantalla: '', numeroSerie: '', 
     memoria1: '', memoria1_capacidad: '',
     memoria2: '', memoria2_capacidad: '',
     disco1: '', disco1_capacidad: '',
@@ -38,7 +38,7 @@ export default function Home() {
     }
     setStatus('Enviando...');
     try {
-      const res = await fetch('/api/save', {
+      const res = await fetch('/api/guardar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -46,7 +46,7 @@ export default function Home() {
       const json = await res.json();
       if (res.ok) {
         setStatus('Guardado correctamente');
-        setForm({ glpi: '', activo: '', monitor: '', serial: '', 
+        setForm({ glpi: '', activo: '', pantalla: '', numeroSerie: '', 
           memoria1: '', memoria1_capacidad: '',
           memoria2: '', memoria2_capacidad: '',
           disco1: '', disco1_capacidad: '',
@@ -66,7 +66,7 @@ export default function Home() {
       <h1 style={{color:'var(--accent)'}}>Dashboard - Listado de equipos</h1>
       <div className="tabs">
         <a className="tab active">Formulario</a>
-        <Link href="/list"><a className="tab">Listado</a></Link>
+        <Link href="/listado"><a className="tab">Listado</a></Link>
       </div>
       <div className="card">
         <form onSubmit={onSubmit} className="form">
@@ -84,12 +84,12 @@ export default function Home() {
 
           <label>
             Monitor
-            <input name="monitor" value={form.monitor} onChange={onChange} />
+            <input name="pantalla" value={form.pantalla} onChange={onChange} />
           </label>
 
           <label>
             Serial
-            <input name="serial" value={form.serial} onChange={onChange} />
+            <input name="numeroSerie" value={form.numeroSerie} onChange={onChange} />
             {errors.serial && <div className="error">{errors.serial}</div>}
           </label>
 

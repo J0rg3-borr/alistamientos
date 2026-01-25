@@ -54,7 +54,7 @@ export default function ListPage() {
             <tbody>
               {rows.slice(1).map((r, idx) => {
                 const fecha = (r[18] || '').toString().split('T')[0];
-                const status = r[19] || '';
+                const status = r[18] || '';
                 const sheetRowNumber = idx + 2; // because slice(1)
                 return (
                 <tr key={idx} className="row-click">
