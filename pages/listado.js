@@ -158,10 +158,9 @@ export default function ListPage() {
                               body: JSON.stringify({ row: sheetRowNumber })
                             });
                             if (res.ok) {
-                              // Remover la fila del estado local
-                              const copy = [...rows];
-                              copy.splice(idx+1, 1);
-                              setRows(copy);
+                              // Remover la fila del listado (sin borrar de Google Sheets)
+                              const newRows = rows.filter((_, i) => i !== idx + 1);
+                              setRows(newRows);
                             } else {
                               const j = await res.json();
                               console.error(j);
