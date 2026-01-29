@@ -5,28 +5,27 @@ export default async function handler(req, res) {
 
   try {
     const data = req.body;
-    // Orden de columnas: GLPI, Activo, Pantalla, Número de Serie, Memoria1, Memoria1_Capacidad, Memoria1_Activo, Memoria2, Memoria2_Capacidad, Memoria2_Activo, Disco1, Disco1_Capacidad, Disco1_Activo, Disco2, Disco2_Capacidad, Disco2_Activo, Cliente, Técnico, Fecha
+    // Orden de columnas: A-GLPI, B-Activo, C-Pantalla, D-Serial, E-Memoria1, F-Memoria1_Capacidad, G-Memoria1_Activo, H-Memoria2, I-Memoria2_Capacidad, J-Memoria2_Activo, K-Disco1, L-Disco1_Capacidad, M-Disco1_Activo, N-Disco2, O-Disco2_Capacidad, P-Disco2_Activo, Q-Cliente, R-Técnico, S-Fecha
     const row = [
-      data.glpi || '',
-      data.activo || '',
-      data.pantalla || '',
-      data.numeroSerie || '',
-      data.memoria1 || '',
-      data.memoria1_capacidad || '',
-      data.memoria1_activo || '',
-      data.memoria2 || '',
-      data.memoria2_capacidad || '',
-      data.memoria2_activo || '',
-      data.disco1 || '',
-      data.disco1_capacidad || '',
-      data.disco1_activo || '',
-      data.disco2 || '',
-      data.disco2_capacidad || '',
-      data.disco2_activo || '',
-      data.cliente || '',
-      data.tecnico || '',
-      // Guardar solo la fecha en formato YYYY-MM-DD
-      new Date().toISOString().split('T')[0]
+      data.glpi || '',        // A
+      data.activo || '',      // B
+      data.pantalla || '',    // C
+      data.numeroSerie || '', // D
+      data.memoria1 || '',    // E
+      data.memoria1_capacidad || '', // F
+      data.memoria1_activo || '', // G
+      data.memoria2 || '',    // H
+      data.memoria2_capacidad || '', // I
+      data.memoria2_activo || '', // J
+      data.disco1 || '',      // K
+      data.disco1_capacidad || '', // L
+      data.disco1_activo || '', // M
+      data.disco2 || '',      // N
+      data.disco2_capacidad || '', // O
+      data.disco2_activo || '', // P
+      data.cliente || '',     // Q
+      data.tecnico || '',     // R
+      new Date().toISOString().split('T')[0] // S - Fecha
     ];
 
     await appendRow(row);
