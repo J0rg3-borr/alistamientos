@@ -3,19 +3,20 @@ import Link from 'next/link';
 
 export default function Home() {
   const [form, setForm] = useState({
-    glpi: '', activo: '', pantalla: '', numeroSerie: '', 
-    memoria1: '', memoria1_capacidad: '',
-    memoria2: '', memoria2_capacidad: '',
-    disco1: '', disco1_capacidad: '',
-    disco2: '', disco2_capacidad: '',
+    glpi: '', activo: '', marca: '', modelo: '', pantalla: '', numeroSerie: '', 
+    memoria1: '', memoria1_capacidad: '', memoria1_activo: false,
+    memoria2: '', memoria2_capacidad: '', memoria2_activo: false,
+    disco1: '', disco1_capacidad: '', disco1_activo: false,
+    disco2: '', disco2_capacidad: '', disco2_activo: false,
     cliente: '', tecnico: ''
   });
   const [status, setStatus] = useState(null);
   const [errors, setErrors] = useState({});
 
   function onChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: null });
+    const { name, value, type, checked } = e.target;
+    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
+    setErrors({ ...errors, [name]: null });
   }
 
   function validate() {
@@ -45,11 +46,11 @@ export default function Home() {
       const json = await res.json();
       if (res.ok) {
         setStatus('Guardado correctamente');
-        setForm({ glpi: '', activo: '', pantalla: '', numeroSerie: '', 
-          memoria1: '', memoria1_capacidad: '',
-          memoria2: '', memoria2_capacidad: '',
-          disco1: '', disco1_capacidad: '',
-          disco2: '', disco2_capacidad: '',
+        setForm({ glpi: '', activo: '', marca: '', modelo: '', pantalla: '', numeroSerie: '', 
+          memoria1: '', memoria1_capacidad: '', memoria1_activo: false,
+          memoria2: '', memoria2_capacidad: '', memoria2_activo: false,
+          disco1: '', disco1_capacidad: '', disco1_activo: false,
+          disco2: '', disco2_capacidad: '', disco2_activo: false,
           cliente: '', tecnico: '' });
         setErrors({});
       } else {
@@ -82,6 +83,24 @@ export default function Home() {
           </label>
 
           <label>
+            Marca
+            <select name="marca" value={form.marca} onChange={onChange}>
+              <option value="">-- Seleccionar --</option>
+              <option value="HP">HP</option>
+              <option value="LENOVO">LENOVO</option>
+              <option value="DELL">DELL</option>
+              <option value="ASUS">ASUS</option>
+              <option value="ACER">ACER</option>
+              <option value="MAC">MAC</option>
+            </select>
+          </label>
+
+          <label>
+            Modelo
+            <input name="modelo" value={form.modelo} onChange={onChange} />
+          </label>
+
+          <label>
             Monitor
             <input name="pantalla" value={form.pantalla} onChange={onChange} />
           </label>
@@ -95,22 +114,30 @@ export default function Home() {
           <div className="row">
             <div className="col">
               <label>
-                Activo memoria 
-                <input name="memoria1_activo" value={form.memoria1_activo} onChange={onChange} />
+                Memoria 1
+                <input name="memoria1" value={form.memoria1} onChange={onChange} />
               </label>
               <label>
                 Capacidad Memoria 1
                 <input name="memoria1_capacidad" value={form.memoria1_capacidad} onChange={onChange} />
               </label>
+              <label>
+                Activo memoria 1
+                <input type="checkbox" name="memoria1_activo" checked={form.memoria1_activo} onChange={onChange} />
+              </label>
             </div>
             <div className="col">
               <label>
-                Activo memoria 
-                <input name="memoria2_activo" value={form.memoria2_activo} onChange={onChange} />
+                Memoria 2
+                <input name="memoria2" value={form.memoria2} onChange={onChange} />
               </label>
               <label>
                 Capacidad Memoria 2
                 <input name="memoria2_capacidad" value={form.memoria2_capacidad} onChange={onChange} />
+              </label>
+              <label>
+                Activo memoria 2
+                <input type="checkbox" name="memoria2_activo" checked={form.memoria2_activo} onChange={onChange} />
               </label>
             </div>
           </div>
@@ -118,22 +145,30 @@ export default function Home() {
           <div className="row">
             <div className="col">
               <label>
-                Activo disco
-                <input name="disco1_activo" value={form.disco1_activo} onChange={onChange} />
+                Disco 1
+                <input name="disco1" value={form.disco1} onChange={onChange} />
               </label>
               <label>
                 Capacidad Disco 1
                 <input name="disco1_capacidad" value={form.disco1_capacidad} onChange={onChange} />
               </label>
+              <label>
+                Activo disco 1
+                <input type="checkbox" name="disco1_activo" checked={form.disco1_activo} onChange={onChange} />
+              </label>
             </div>
             <div className="col">
               <label>
-                Activo disco 2
-                <input name="disco2_activo" value={form.disco2_activo} onChange={onChange} />
+                Disco 2
+                <input name="disco2" value={form.disco2} onChange={onChange} />
               </label>
               <label>
                 Capacidad Disco 2
                 <input name="disco2_capacidad" value={form.disco2_capacidad} onChange={onChange} />
+              </label>
+              <label>
+                Activo disco 2
+                <input type="checkbox" name="disco2_activo" checked={form.disco2_activo} onChange={onChange} />
               </label>
             </div>
           </div>
@@ -154,6 +189,28 @@ export default function Home() {
             <button type="submit">Guardar en listamiento</button>
           </div>
         </form>
+
+        <div className="card" style={{marginTop: '1rem'}}>
+          <h3>Resumen</h3>
+          <p><strong>GLPI:</strong> {form.glpi || '-'}</p>
+          <p><strong>Activo:</strong> {form.activo || '-'}</p>
+          <p><strong>Marca:</strong> {form.marca || '-'}</p>
+          <p><strong>Modelo:</strong> {form.modelo || '-'}</p>
+          <p><strong>Pantalla:</strong> {form.pantalla || '-'}</p>
+          <p><strong>Serial:</strong> {form.numeroSerie || '-'}</p>
+          { (form.memoria1 || form.memoria1_capacidad) && (
+            <p><strong>Memoria 1:</strong> {form.memoria1 || '-'} {form.memoria1_capacidad ? `(${form.memoria1_capacidad})` : ''} {form.memoria1_activo ? ' - Activa' : ''}</p>
+          )}
+          { (form.memoria2 || form.memoria2_capacidad) && (
+            <p><strong>Memoria 2:</strong> {form.memoria2 || '-'} {form.memoria2_capacidad ? `(${form.memoria2_capacidad})` : ''} {form.memoria2_activo ? ' - Activa' : ''}</p>
+          )}
+          { (form.disco1 || form.disco1_capacidad) && (
+            <p><strong>Disco 1:</strong> {form.disco1 || '-'} {form.disco1_capacidad ? `(${form.disco1_capacidad})` : ''} {form.disco1_activo ? ' - Activo' : ''}</p>
+          )}
+          { (form.disco2 || form.disco2_capacidad) && (
+            <p><strong>Disco 2:</strong> {form.disco2 || '-'} {form.disco2_capacidad ? `(${form.disco2_capacidad})` : ''} {form.disco2_activo ? ' - Activo' : ''}</p>
+          )}
+        </div>
 
         {status && <div className="status">{status}</div>}
       </div>
