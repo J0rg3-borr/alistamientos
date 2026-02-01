@@ -4,10 +4,10 @@ import Link from 'next/link';
 export default function Home() {
   const [form, setForm] = useState({
     glpi: '', activo: '', marca: '', modelo: '', pantalla: '', numeroSerie: '', 
-    memoria1: '', memoria1_capacidad: '', memoria1_activo: false,
-    memoria2: '', memoria2_capacidad: '', memoria2_activo: false,
-    disco1: '', disco1_capacidad: '', disco1_activo: false,
-    disco2: '', disco2_capacidad: '', disco2_activo: false,
+    memoria1: '', memoria1_capacidad: '',
+    memoria2: '', memoria2_capacidad: '',
+    disco1: '', disco1_capacidad: '',
+    disco2: '', disco2_capacidad: '',
     cliente: '', tecnico: ''
   });
   const [status, setStatus] = useState(null);
@@ -47,10 +47,10 @@ export default function Home() {
       if (res.ok) {
         setStatus('Guardado correctamente');
         setForm({ glpi: '', activo: '', marca: '', modelo: '', pantalla: '', numeroSerie: '', 
-          memoria1: '', memoria1_capacidad: '', memoria1_activo: false,
-          memoria2: '', memoria2_capacidad: '', memoria2_activo: false,
-          disco1: '', disco1_capacidad: '', disco1_activo: false,
-          disco2: '', disco2_capacidad: '', disco2_activo: false,
+          memoria1: '', memoria1_capacidad: '',
+          memoria2: '', memoria2_capacidad: '',
+          disco1: '', disco1_capacidad: '',
+          disco2: '', disco2_capacidad: '',
           cliente: '', tecnico: '' });
         setErrors({});
       } else {
@@ -190,27 +190,7 @@ export default function Home() {
           </div>
         </form>
 
-        <div className="card" style={{marginTop: '1rem'}}>
-          <h3>Resumen</h3>
-          <p><strong>GLPI:</strong> {form.glpi || '-'}</p>
-          <p><strong>Activo:</strong> {form.activo || '-'}</p>
-          <p><strong>Marca:</strong> {form.marca || '-'}</p>
-          <p><strong>Modelo:</strong> {form.modelo || '-'}</p>
-          <p><strong>Pantalla:</strong> {form.pantalla || '-'}</p>
-          <p><strong>Serial:</strong> {form.numeroSerie || '-'}</p>
-          { (form.memoria1 || form.memoria1_capacidad) && (
-            <p><strong>Memoria 1:</strong> {form.memoria1 || '-'} {form.memoria1_capacidad ? `(${form.memoria1_capacidad})` : ''} {form.memoria1_activo ? ' - Activa' : ''}</p>
-          )}
-          { (form.memoria2 || form.memoria2_capacidad) && (
-            <p><strong>Memoria 2:</strong> {form.memoria2 || '-'} {form.memoria2_capacidad ? `(${form.memoria2_capacidad})` : ''} {form.memoria2_activo ? ' - Activa' : ''}</p>
-          )}
-          { (form.disco1 || form.disco1_capacidad) && (
-            <p><strong>Disco 1:</strong> {form.disco1 || '-'} {form.disco1_capacidad ? `(${form.disco1_capacidad})` : ''} {form.disco1_activo ? ' - Activo' : ''}</p>
-          )}
-          { (form.disco2 || form.disco2_capacidad) && (
-            <p><strong>Disco 2:</strong> {form.disco2 || '-'} {form.disco2_capacidad ? `(${form.disco2_capacidad})` : ''} {form.disco2_activo ? ' - Activo' : ''}</p>
-          )}
-        </div>
+
 
         {status && <div className="status">{status}</div>}
       </div>

@@ -30,18 +30,20 @@ export default function ListPage() {
     setEditForm({
       glpi: row[0] || '',
       activo: row[1] || '',
-      pantalla: row[2] || '',
-      numeroSerie: row[3] || '',
-      memoria1_capacidad: row[4] || '',
-      memoria1_activo: row[5] || '',
-      memoria2_capacidad: row[6] || '',
-      memoria2_activo: row[7] || '',
-      disco1_capacidad: row[8] || '',
-      disco1_activo: row[9] || '',
-      disco2_capacidad: row[10] || '',
-      disco2_activo: row[11] || '',
-      cliente: row[12] || '',
-      tecnico: row[13] || ''
+      marca: row[2] || '',
+      modelo: row[3] || '',
+      pantalla: row[4] || '',
+      numeroSerie: row[5] || '',
+      memoria1: row[6] || '',
+      memoria1_capacidad: row[7] || '',
+      memoria2: row[8] || '',
+      memoria2_capacidad: row[9] || '',
+      disco1: row[10] || '',
+      disco1_capacidad: row[11] || '',
+      disco2: row[12] || '',
+      disco2_capacidad: row[13] || '',
+      cliente: row[19] || '',
+      tecnico: row[20] || ''
     });
   }
 
@@ -59,26 +61,12 @@ export default function ListPage() {
       });
       if (res.ok) {
         alert('Actualizado correctamente');
-        // Actualizar la fila local
-        const newRows = [...rows];
-        newRows[selectedRowIndex + 1] = [
-          editForm.glpi,
-          editForm.activo,
-          editForm.pantalla,
-          editForm.numeroSerie,
-          editForm.memoria1_capacidad,
-          editForm.memoria1_activo,
-          editForm.memoria2_capacidad,
-          editForm.memoria2_activo,
-          editForm.disco1_capacidad,
-          editForm.disco1_activo,
-          editForm.disco2_capacidad,
-          editForm.disco2_activo,
-          editForm.cliente,
-          editForm.tecnico,
-          newRows[selectedRowIndex + 1][14]
-        ];
-        setRows(newRows);
+        // Refrescar listado desde el servidor
+        try {
+          const r2 = await fetch('/api/list');
+          const j2 = await r2.json();
+          if (r2.ok) setRows(j2.rows || []);
+        } catch (e) { console.error(e); }
         setSelected(null);
         setEditForm(null);
       } else {
@@ -110,11 +98,12 @@ export default function ListPage() {
               <tr>
                 <th>GLPI</th>
                 <th>Activo</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Pantalla</th>
                 <th>Serial</th>
-                <th>Disco 1</th>
-                <th>Disco 2</th>
-                <th>Memoria 1</th>
-                <th>Memoria 2</th>
+                <th>Memoria</th>
+                <th>Disco</th>
                 <th>Cliente</th>
                 <th>Fecha</th>
                 <th>Acción</th>
@@ -122,19 +111,20 @@ export default function ListPage() {
             </thead>
             <tbody>
               {rows.slice(1).map((r, idx) => {
-                const fecha = (r[18] || '').toString().split('T')[0];
                 const status = r[18] || '';
+                const fecha = (r[21] || '').toString().split('T')[0];
                 const sheetRowNumber = idx + 2; // because slice(1)
                 return (
                 <tr key={idx} className="row-click">
                   <td onClick={() => setSelected(r)}>{r[0]}</td>
                   <td onClick={() => setSelected(r)}>{r[1]}</td>
+                  <td onClick={() => setSelected(r)}>{r[2]}</td>
                   <td onClick={() => setSelected(r)}>{r[3]}</td>
-                  <td onClick={() => setSelected(r)}>{r[10]} (Cap: {r[11]}, Act: {r[12]})</td>
-                  <td onClick={() => setSelected(r)}>{r[13]} (Cap: {r[14]}, Act: {r[15]})</td>
-                  <td onClick={() => setSelected(r)}>{r[4]} (Cap: {r[5]}, Act: {r[6]})</td>
-                  <td onClick={() => setSelected(r)}>{r[7]} (Cap: {r[8]}, Act: {r[9]})</td>
-                  <td onClick={() => setSelected(r)}>{r[16]}</td>
+                  <td onClick={() => setSelected(r)}>{r[4]}</td>
+                  <td onClick={() => setSelected(r)}>{r[5]}</td>
+                  <td onClick={() => setSelected(r)}>{([ [6,7], [8,9] ].map(([n,c]) => (r[n]||r[c]) ? `${r[n] || '-'}${r[c] ? ` (${r[c]})` : ''}` : null).filter(Boolean).join(', '))}</td>
+                  <td onClick={() => setSelected(r)}>{([ [10,11], [12,13] ].map(([n,c]) => (r[n]||r[c]) ? `${r[n] || '-'}${r[c] ? ` (${r[c]})` : ''}` : null).filter(Boolean).join(', '))}</td>
+                  <td onClick={() => setSelected(r)}>{r[19]}</td>
                   <td onClick={() => setSelected(r)}>{fecha}</td>
                   <td>
                     {status ? (
@@ -167,7 +157,8 @@ export default function ListPage() {
                     )}
                   </td>
                 </tr>
-              )})}
+              );
+            })}
             </tbody>
           </table>
         )}
@@ -184,6 +175,14 @@ export default function ListPage() {
               <label>
                 Activo
                 <input type="text" value={editForm.activo} onChange={(e) => handleEditChange('activo', e.target.value)} />
+              </label>
+              <label>
+                Marca
+                <input type="text" value={editForm.marca || ''} onChange={(e) => handleEditChange('marca', e.target.value)} />
+              </label>
+              <label>
+                Modelo
+                <input type="text" value={editForm.modelo || ''} onChange={(e) => handleEditChange('modelo', e.target.value)} />
               </label>
               <label>
                 Monitor
@@ -253,15 +252,17 @@ export default function ListPage() {
             <ul>
               <li><strong>GLPI:</strong> {selected[0]}</li>
               <li><strong>Activo:</strong> {selected[1]}</li>
-              <li><strong>Monitor:</strong> {selected[2]}</li>
-              <li><strong>Serial:</strong> {selected[3]}</li>
-              <li><strong>Memoria 1:</strong> {selected[4]} (Cap: {selected[5]}, Act: {selected[6]})</li>
-              <li><strong>Memoria 2:</strong> {selected[7]} (Cap: {selected[8]}, Act: {selected[9]})</li>
-              <li><strong>Disco 1:</strong> {selected[10]} (Cap: {selected[11]}, Act: {selected[12]})</li>
-              <li><strong>Disco 2:</strong> {selected[13]} (Cap: {selected[14]}, Act: {selected[15]})</li>
-              <li><strong>Cliente:</strong> {selected[16]}</li>
-              <li><strong>Técnico:</strong> {selected[17]}</li>
-              <li><strong>Fecha:</strong> {(selected[18]||'').toString().split('T')[0]}</li>
+              <li><strong>Marca:</strong> {selected[2]}</li>
+              <li><strong>Modelo:</strong> {selected[3]}</li>
+              <li><strong>Monitor:</strong> {selected[4]}</li>
+              <li><strong>Serial:</strong> {selected[5]}</li>
+              <li><strong>Memoria 1:</strong> {selected[6]} {selected[7] ? `(Cap: ${selected[7]})` : ''}</li>
+              <li><strong>Memoria 2:</strong> {selected[8]} {selected[9] ? `(Cap: ${selected[9]})` : ''}</li>
+              <li><strong>Disco 1:</strong> {selected[10]} {selected[11] ? `(Cap: ${selected[11]})` : ''}</li>
+              <li><strong>Disco 2:</strong> {selected[12]} {selected[13] ? `(Cap: ${selected[13]})` : ''}</li>
+              <li><strong>Cliente:</strong> {selected[19]}</li>
+              <li><strong>Técnico:</strong> {selected[20]}</li>
+              <li><strong>Fecha:</strong> {(selected[21]||'').toString().split('T')[0]}</li>
             </ul>
             <div style={{marginTop:12}}>
               <button onClick={() => { setSelected(null); setEditForm(null); }}>Cerrar</button>

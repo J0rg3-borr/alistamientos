@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
   try {
     const data = req.body;
-    // Orden de columnas (A:V):
+    // Orden de columnas (A:V) sin flags *_activo:
     // A: GLPI
     // B: Activo
     // C: Marca
@@ -14,42 +14,39 @@ export default async function handler(req, res) {
     // F: Número de Serie
     // G: Memoria1
     // H: Memoria1_Capacidad
-    // I: Memoria1_Activo
-    // J: Memoria2
-    // K: Memoria2_Capacidad
-    // L: Memoria2_Activo
-    // M: Disco1
-    // N: Disco1_Capacidad
-    // O: Disco1_Activo
-    // P: Disco2
-    // Q: Disco2_Capacidad
-    // R: Disco2_Activo
+    // I: Memoria2
+    // J: Memoria2_Capacidad
+    // K: Disco1
+    // L: Disco1_Capacidad
+    // M: Disco2
+    // N: Disco2_Capacidad
+    // O: (reserved)
+    // P: (reserved)
+    // Q: (reserved)
+    // R: (reserved)
     // S: Estado (reservado para 'Listo para entrega')
     // T: Cliente
     // U: Técnico
     // V: Fecha
     const row = [
-      data.glpi || '',                 // A
-      data.activo || '',               // B
-      data.marca || '',                // C
-      data.modelo || '',               // D
-      data.pantalla || '',             // E
-      data.numeroSerie || '',          // F
-      data.memoria1 || '',             // G
-      data.memoria1_capacidad || '',   // H
-      (data.memoria1_activo ? 'SI' : 'NO'), // I
-      data.memoria2 || '',             // J
-      data.memoria2_capacidad || '',   // K
-      (data.memoria2_activo ? 'SI' : 'NO'), // L
-      data.disco1 || '',               // M
-      data.disco1_capacidad || '',     // N
-      (data.disco1_activo ? 'SI' : 'NO'), // O
-      data.disco2 || '',               // P
-      data.disco2_capacidad || '',     // Q
-      (data.disco2_activo ? 'SI' : 'NO'), // R
-      '',                              // S - reserved
-      data.cliente || '',              // T
-      data.tecnico || '',              // U
+      data.glpi || '',               // A
+      data.activo || '',             // B
+      data.marca || '',              // C
+      data.modelo || '',             // D
+      data.pantalla || '',           // E
+      data.numeroSerie || '',        // F
+      data.memoria1 || '',           // G
+      data.memoria1_capacidad || '', // H
+      data.memoria2 || '',           // I
+      data.memoria2_capacidad || '', // J
+      data.disco1 || '',             // K
+      data.disco1_capacidad || '',   // L
+      data.disco2 || '',             // M
+      data.disco2_capacidad || '',   // N
+      '', '', '', '',                 // O, P, Q, R placeholders
+      '',                            // S - reserved
+      data.cliente || '',            // T
+      data.tecnico || '',            // U
       new Date().toISOString().split('T')[0] // V - Fecha
     ];
 

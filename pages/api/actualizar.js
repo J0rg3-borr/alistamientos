@@ -13,18 +13,20 @@ export default async function handler(req, res) {
     const fieldMap = {
       glpi: 'A',
       activo: 'B',
-      pantalla: 'C',
-      numeroSerie: 'D',
-      Activo_memoria1: 'E',
-      Activo_memoria2: 'F',
-      memoria1_capacidad: 'G',
-      memoria2_capacidad: 'H',
-      Activo_disco1: 'I',
-      Capacidad_disco1: 'J',
-      Activo_disco2: 'K',
-      disco2_capacidad: 'L',
-      cliente: 'M',
-      tecnico: 'N'
+      marca: 'C',
+      modelo: 'D',
+      pantalla: 'E',
+      numeroSerie: 'F',
+      memoria1: 'G',
+      memoria1_capacidad: 'H',
+      memoria2: 'I',
+      memoria2_capacidad: 'J',
+      disco1: 'K',
+      disco1_capacidad: 'L',
+      disco2: 'M',
+      disco2_capacidad: 'N',
+      cliente: 'T',
+      tecnico: 'U'
     };
 
     // Actualizar cada campo
