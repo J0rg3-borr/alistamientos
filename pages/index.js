@@ -121,10 +121,6 @@ export default function Home() {
                 Capacidad Memoria 1
                 <input name="memoria1_capacidad" value={form.memoria1_capacidad} onChange={onChange} />
               </label>
-              <label>
-                Activo memoria 1
-                <input type="checkbox" name="memoria1_activo" checked={form.memoria1_activo} onChange={onChange} />
-              </label>
             </div>
             <div className="col">
               <label>
@@ -134,10 +130,6 @@ export default function Home() {
               <label>
                 Capacidad Memoria 2
                 <input name="memoria2_capacidad" value={form.memoria2_capacidad} onChange={onChange} />
-              </label>
-              <label>
-                Activo memoria 2
-                <input type="checkbox" name="memoria2_activo" checked={form.memoria2_activo} onChange={onChange} />
               </label>
             </div>
           </div>
@@ -152,10 +144,6 @@ export default function Home() {
                 Capacidad Disco 1
                 <input name="disco1_capacidad" value={form.disco1_capacidad} onChange={onChange} />
               </label>
-              <label>
-                Activo disco 1
-                <input type="checkbox" name="disco1_activo" checked={form.disco1_activo} onChange={onChange} />
-              </label>
             </div>
             <div className="col">
               <label>
@@ -165,10 +153,6 @@ export default function Home() {
               <label>
                 Capacidad Disco 2
                 <input name="disco2_capacidad" value={form.disco2_capacidad} onChange={onChange} />
-              </label>
-              <label>
-                Activo disco 2
-                <input type="checkbox" name="disco2_activo" checked={form.disco2_activo} onChange={onChange} />
               </label>
             </div>
           </div>
