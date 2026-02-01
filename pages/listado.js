@@ -51,6 +51,16 @@ export default function ListPage() {
     setEditForm({ ...editForm, [field]: value });
   }
 
+  // Detecta si un valor parece ser una capacidad (contiene dígitos) para evitar mostrar nombres en la columna de capacidades
+  function isCapacity(val) {
+    if (!val && val !== 0) return false;
+    try {
+      return /\d/.test(String(val));
+    } catch (e) {
+      return false;
+    }
+  }
+
   async function handleSaveEdit() {
     try {
       const sheetRowNumber = selectedRowIndex + 2;
@@ -122,8 +132,8 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[3]}</td>
                   <td onClick={() => setSelected(r)}>{r[4]}</td>
                   <td onClick={() => setSelected(r)}>{r[5]}</td>
-                  <td onClick={() => setSelected(r)}>{([r[7], r[9]].filter(Boolean).join(', ') ) || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{([r[11], r[13]].filter(Boolean).join(', ') ) || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{([r[7], r[9]].filter(isCapacity).join(', ') ) || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{([r[11], r[13]].filter(isCapacity).join(', ') ) || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[19]}</td>
                   <td onClick={() => setSelected(r)}>{fecha}</td>
                   <td>
@@ -256,8 +266,8 @@ export default function ListPage() {
               <li><strong>Modelo:</strong> {selected[3]}</li>
               <li><strong>Monitor:</strong> {selected[4]}</li>
               <li><strong>Serial:</strong> {selected[5]}</li>
-              <li><strong>Memoria (capacidades):</strong> {([selected[7], selected[9]].filter(Boolean).join(', ') ) || '-'}</li>
-              <li><strong>Disco (capacidades):</strong> {([selected[11], selected[13]].filter(Boolean).join(', ') ) || '-'}</li>
+              <li><strong>Memoria (capacidades):</strong> {([selected[7], selected[9]].filter(isCapacity).join(', ') ) || '-'}</li>
+              <li><strong>Disco (capacidades):</strong> {([selected[11], selected[13]].filter(isCapacity).join(', ') ) || '-'}</li>
               <li><strong>Cliente:</strong> {selected[19]}</li>
               <li><strong>Técnico:</strong> {selected[20]}</li>
               <li><strong>Fecha:</strong> {(selected[21]||'').toString().split('T')[0]}</li>
