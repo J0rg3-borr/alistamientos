@@ -32,20 +32,16 @@ export default function ListPage() {
       activo: row[1] || '',
       pantalla: row[2] || '',
       numeroSerie: row[3] || '',
-      memoria1: row[4] || '',
-      memoria1_capacidad: row[5] || '',
-      memoria1_activo: row[6] || '',
-      memoria2: row[7] || '',
-      memoria2_capacidad: row[8] || '',
-      memoria2_activo: row[9] || '',
-      disco1: row[10] || '',
-      disco1_capacidad: row[11] || '',
-      disco1_activo: row[12] || '',
-      disco2: row[13] || '',
-      disco2_capacidad: row[14] || '',
-      disco2_activo: row[15] || '',
-      cliente: row[16] || '',
-      tecnico: row[17] || ''
+      memoria1_capacidad: row[4] || '',
+      memoria1_activo: row[5] || '',
+      memoria2_capacidad: row[6] || '',
+      memoria2_activo: row[7] || '',
+      disco1_capacidad: row[8] || '',
+      disco1_activo: row[9] || '',
+      disco2_capacidad: row[10] || '',
+      disco2_activo: row[11] || '',
+      cliente: row[12] || '',
+      tecnico: row[13] || ''
     });
   }
 
@@ -70,21 +66,17 @@ export default function ListPage() {
           editForm.activo,
           editForm.pantalla,
           editForm.numeroSerie,
-          editForm.memoria1,
           editForm.memoria1_capacidad,
           editForm.memoria1_activo,
-          editForm.memoria2,
           editForm.memoria2_capacidad,
           editForm.memoria2_activo,
-          editForm.disco1,
           editForm.disco1_capacidad,
           editForm.disco1_activo,
-          editForm.disco2,
           editForm.disco2_capacidad,
           editForm.disco2_activo,
           editForm.cliente,
           editForm.tecnico,
-          newRows[selectedRowIndex + 1][18]
+          newRows[selectedRowIndex + 1][14]
         ];
         setRows(newRows);
         setSelected(null);

@@ -95,8 +95,8 @@ export default function Home() {
           <div className="row">
             <div className="col">
               <label>
-                Memoria 1
-                <input name="memoria1" value={form.memoria1} onChange={onChange} />
+                Activo memoria 
+                <input name="memoria1_activo" value={form.memoria1_activo} onChange={onChange} />
               </label>
               <label>
                 Capacidad Memoria 1
@@ -105,8 +105,8 @@ export default function Home() {
             </div>
             <div className="col">
               <label>
-                Memoria 2
-                <input name="memoria2" value={form.memoria2} onChange={onChange} />
+                Activo memoria 
+                <input name="memoria2_activo" value={form.memoria2_activo} onChange={onChange} />
               </label>
               <label>
                 Capacidad Memoria 2
@@ -118,8 +118,8 @@ export default function Home() {
           <div className="row">
             <div className="col">
               <label>
-                Disco 1
-                <input name="disco1" value={form.disco1} onChange={onChange} />
+                Activo disco
+                <input name="disco1_activo" value={form.disco1_activo} onChange={onChange} />
               </label>
               <label>
                 Capacidad Disco 1
@@ -128,8 +128,8 @@ export default function Home() {
             </div>
             <div className="col">
               <label>
-                Disco 2
-                <input name="disco2" value={form.disco2} onChange={onChange} />
+                Activo disco 2
+                <input name="disco2_activo" value={form.disco2_activo} onChange={onChange} />
               </label>
               <label>
                 Capacidad Disco 2

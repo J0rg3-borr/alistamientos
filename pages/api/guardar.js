@@ -5,26 +5,22 @@ export default async function handler(req, res) {
 
   try {
     const data = req.body;
-    // Orden de columnas: A-GLPI, B-Activo, C-Pantalla, D-Serial, E-Memoria1, F-Memoria1_Capacidad, G-Memoria1_Activo, H-Memoria2, I-Memoria2_Capacidad, J-Memoria2_Activo, K-Disco1, L-Disco1_Capacidad, M-Disco1_Activo, N-Disco2, O-Disco2_Capacidad, P-Disco2_Activo, Q-Cliente, R-Técnico, S-Fecha
+    // Orden de columnas: A-GLPI, B-Activo, C-Pantalla, D-Serial, E-Memoria1_Capacidad, F-Memoria1_Activo, G-Memoria2_Capacidad, H-Memoria2_Activo, I-Disco1_Capacidad, J-Disco1_Activo, K-Disco2_Capacidad, L-Disco2_Activo, M-Cliente, N-Técnico, O-Fecha
     const row = [
       data.glpi || '',        // A
       data.activo || '',      // B
       data.pantalla || '',    // C
       data.numeroSerie || '', // D
-      data.memoria1 || '',    // E
-      data.memoria1_capacidad || '', // F
-      data.memoria1_activo || '', // G
-      data.memoria2 || '',    // H
-      data.memoria2_capacidad || '', // I
-      data.memoria2_activo || '', // J
-      data.disco1 || '',      // K
-      data.disco1_capacidad || '', // L
-      data.disco1_activo || '', // M
-      data.disco2 || '',      // N
-      data.disco2_capacidad || '', // O
-      data.disco2_activo || '', // P
-      data.cliente || '',     // Q
-      data.tecnico || '',     // R
+      data.memoria1_capacidad || '', // E
+      data.memoria1_activo || '', // F
+      data.memoria2_capacidad || '', // G
+      data.memoria2_activo || '', // H
+      data.disco1_capacidad || '', // I
+      data.disco1_activo || '', // J
+      data.disco2_capacidad || '', // K
+      data.disco2_activo || '', // L
+      data.cliente || '',     // M
+      data.tecnico || '',     // N
       new Date().toISOString().split('T')[0] // S - Fecha
     ];
 

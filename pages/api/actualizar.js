@@ -15,20 +15,16 @@ export default async function handler(req, res) {
       activo: 'B',
       pantalla: 'C',
       numeroSerie: 'D',
-      memoria1: 'E',
-      memoria1_capacidad: 'F',
-      memoria1_activo: 'G',
-      memoria2: 'H',
-      memoria2_capacidad: 'I',
-      memoria2_activo: 'J',
-      disco1: 'K',
-      disco1_capacidad: 'L',
-      disco1_activo: 'M',
-      disco2: 'N',
-      disco2_capacidad: 'O',
-      disco2_activo: 'P',
-      cliente: 'Q',
-      tecnico: 'R'
+      memoria1_capacidad: 'E',
+      memoria1_activo: 'F',
+      memoria2_capacidad: 'G',
+      memoria2_activo: 'H',
+      disco1_capacidad: 'I',
+      disco1_activo: 'J',
+      disco2_capacidad: 'K',
+      disco2_activo: 'L',
+      cliente: 'M',
+      tecnico: 'N'
     };
 
     // Actualizar cada campo
