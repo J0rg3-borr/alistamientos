@@ -102,8 +102,8 @@ export default function ListPage() {
                 <th>Modelo</th>
                 <th>Pantalla</th>
                 <th>Serial</th>
-                <th>Memoria</th>
-                <th>Disco</th>
+                <th>Cap. Memoria</th>
+                <th>Cap. Disco</th>
                 <th>Cliente</th>
                 <th>Fecha</th>
                 <th>Acción</th>
@@ -122,8 +122,8 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[3]}</td>
                   <td onClick={() => setSelected(r)}>{r[4]}</td>
                   <td onClick={() => setSelected(r)}>{r[5]}</td>
-                  <td onClick={() => setSelected(r)}>{([ [6,7], [8,9] ].map(([n,c]) => (r[n]||r[c]) ? `${r[n] || '-'}${r[c] ? ` (${r[c]})` : ''}` : null).filter(Boolean).join(', '))}</td>
-                  <td onClick={() => setSelected(r)}>{([ [10,11], [12,13] ].map(([n,c]) => (r[n]||r[c]) ? `${r[n] || '-'}${r[c] ? ` (${r[c]})` : ''}` : null).filter(Boolean).join(', '))}</td>
+                  <td onClick={() => setSelected(r)}>{([r[7], r[9]].filter(Boolean).join(', ') ) || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{([r[11], r[13]].filter(Boolean).join(', ') ) || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[19]}</td>
                   <td onClick={() => setSelected(r)}>{fecha}</td>
                   <td>
@@ -256,10 +256,8 @@ export default function ListPage() {
               <li><strong>Modelo:</strong> {selected[3]}</li>
               <li><strong>Monitor:</strong> {selected[4]}</li>
               <li><strong>Serial:</strong> {selected[5]}</li>
-              <li><strong>Memoria 1:</strong> {selected[6]} {selected[7] ? `(Cap: ${selected[7]})` : ''}</li>
-              <li><strong>Memoria 2:</strong> {selected[8]} {selected[9] ? `(Cap: ${selected[9]})` : ''}</li>
-              <li><strong>Disco 1:</strong> {selected[10]} {selected[11] ? `(Cap: ${selected[11]})` : ''}</li>
-              <li><strong>Disco 2:</strong> {selected[12]} {selected[13] ? `(Cap: ${selected[13]})` : ''}</li>
+              <li><strong>Memoria (capacidades):</strong> {([selected[7], selected[9]].filter(Boolean).join(', ') ) || '-'}</li>
+              <li><strong>Disco (capacidades):</strong> {([selected[11], selected[13]].filter(Boolean).join(', ') ) || '-'}</li>
               <li><strong>Cliente:</strong> {selected[19]}</li>
               <li><strong>Técnico:</strong> {selected[20]}</li>
               <li><strong>Fecha:</strong> {(selected[21]||'').toString().split('T')[0]}</li>
