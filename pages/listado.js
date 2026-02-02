@@ -42,8 +42,8 @@ export default function ListPage() {
       disco1_capacidad: row[11] || '',
       disco2: row[12] || '',
       disco2_capacidad: row[13] || '',
-      cliente: row[19] || '',
-      tecnico: row[20] || ''
+      cliente: row[14] || '',
+      tecnico: row[15] || ''
     });
   }
 
