@@ -112,17 +112,8 @@ export default function ListPage() {
                 <th>Modelo</th>
                 <th>Pantalla</th>
                 <th>Serial</th>
-
-                <th>Memoria 1</th>
-                <th>Cap. Mem1</th>
-                <th>Memoria 2</th>
-                <th>Cap. Mem2</th>
-
-                <th>Disco 1</th>
-                <th>Cap. Disco1</th>
-                <th>Disco 2</th>
-                <th>Cap. Disco2</th>
-
+                <th>Capacidad Memoria</th>
+                <th>Capacidad Disco</th>
                 <th>Cliente</th>
                 <th>Técnico</th>
                 <th>Fecha</th>
@@ -134,28 +125,26 @@ export default function ListPage() {
                 const status = r[18] || '';
                 const fecha = (r[21] || '').toString().split('T')[0];
                 const sheetRowNumber = idx + 2; // because slice(1)
+
+                const capMem = ([r[7], r[9]].filter(isCapacity).join(', ') ) || '-';
+                const capDisc = ([r[11], r[13]].filter(isCapacity).join(', ') ) || '-';
+
                 return (
                 <tr key={idx} className="row-click">
-                  <td onClick={() => setSelected(r)}>{r[0]}</td>
-                  <td onClick={() => setSelected(r)}>{r[1]}</td>
-                  <td onClick={() => setSelected(r)}>{r[2]}</td>
-                  <td onClick={() => setSelected(r)}>{r[3]}</td>
-                  <td onClick={() => setSelected(r)}>{r[4]}</td>
-                  <td onClick={() => setSelected(r)}>{r[5]}</td>
+                  <td onClick={() => setSelected(r)}>{r[0] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[1] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[2] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[3] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[4] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[5] || '-'}</td>
 
-                  <td onClick={() => setSelected(r)}>{r[6]}</td>
-                  <td onClick={() => setSelected(r)}>{r[7]}</td>
-                  <td onClick={() => setSelected(r)}>{r[8]}</td>
-                  <td onClick={() => setSelected(r)}>{r[9]}</td>
+                  <td onClick={() => setSelected(r)}>{capMem}</td>
+                  <td onClick={() => setSelected(r)}>{capDisc}</td>
 
-                  <td onClick={() => setSelected(r)}>{r[10]}</td>
-                  <td onClick={() => setSelected(r)}>{r[11]}</td>
-                  <td onClick={() => setSelected(r)}>{r[12]}</td>
-                  <td onClick={() => setSelected(r)}>{r[13]}</td>
-
-                  <td onClick={() => setSelected(r)}>{r[19]}</td>
-                  <td onClick={() => setSelected(r)}>{r[20]}</td>
+                  <td onClick={() => setSelected(r)}>{r[19] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[20] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{fecha}</td>
+
                   <td>
                     {status ? (
                       <span style={{color:'#0b7a3d'}}>{status}</span>
