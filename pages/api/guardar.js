@@ -20,14 +20,11 @@ export default async function handler(req, res) {
     // L: Disco1_Capacidad
     // M: Disco2
     // N: Disco2_Capacidad
-    // O: (reserved)
-    // P: (reserved)
-    // Q: (reserved)
+    // O: Cliente
+    // P: Técnico
+    // Q: Fecha
     // R: (reserved)
     // S: Estado (reservado para 'Listo para entrega')
-    // T: Cliente
-    // U: Técnico
-    // V: Fecha
     const row = [
       data.glpi || '',               // A
       data.activo || '',             // B
@@ -43,11 +40,10 @@ export default async function handler(req, res) {
       data.disco1_capacidad || '',   // L
       data.disco2 || '',             // M
       data.disco2_capacidad || '',   // N
-      '', '', '', '',                 // O, P, Q, R placeholders
-      '',                            // S - reserved
-      data.cliente || '',            // T
-      data.tecnico || '',            // U
-      new Date().toISOString().split('T')[0] // V - Fecha
+      data.cliente || '',            // O
+      data.tecnico || '',            // P
+      new Date().toISOString().split('T')[0], // Q - Fecha
+      '', '',                         // R, S placeholders (S index 18 reserved for status)
     ];
 
     await appendRow(row);

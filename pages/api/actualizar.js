@@ -25,8 +25,9 @@ export default async function handler(req, res) {
       disco1_capacidad: 'L',
       disco2: 'M',
       disco2_capacidad: 'N',
-      cliente: 'T',
-      tecnico: 'U'
+      cliente: 'O',
+      tecnico: 'P',
+      fecha: 'Q'
     };
 
     // Actualizar cada campo

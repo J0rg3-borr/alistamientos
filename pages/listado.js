@@ -125,7 +125,7 @@ export default function ListPage() {
             <tbody>
               {rows.slice(1).map((r, idx) => {
                 const status = r[18] || '';
-                const fecha = (r[21] || '').toString().split('T')[0];
+                const fecha = (r[16] || '').toString().split('T')[0];
                 const sheetRowNumber = idx + 2; // because slice(1)
 
 
@@ -144,8 +144,8 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[11] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[13] || '-'}</td>
 
-                  <td onClick={() => setSelected(r)}>{r[19] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[20] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[14] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[15] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{fecha}</td>
 
                   <td>
@@ -282,9 +282,9 @@ export default function ListPage() {
               <li><strong>Memoria 2:</strong> {selected[8] || '-' } (Cap: {selected[9] || '-'})</li>
               <li><strong>Disco 1:</strong> {selected[10] || '-' } (Cap: {selected[11] || '-'})</li>
               <li><strong>Disco 2:</strong> {selected[12] || '-' } (Cap: {selected[13] || '-'})</li>
-              <li><strong>Cliente:</strong> {selected[19]}</li>
-              <li><strong>Técnico:</strong> {selected[20]}</li>
-              <li><strong>Fecha:</strong> {(selected[21]||'').toString().split('T')[0]}</li>
+              <li><strong>Cliente:</strong> {selected[14]}</li>
+              <li><strong>Técnico:</strong> {selected[15]}</li>
+              <li><strong>Fecha:</strong> {(selected[16]||'').toString().split('T')[0]}</li>
             </ul>
             <div style={{marginTop:12}}>
               <button onClick={() => { setSelected(null); setEditForm(null); }}>Cerrar</button>
