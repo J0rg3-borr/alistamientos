@@ -112,8 +112,10 @@ export default function ListPage() {
                 <th>Modelo</th>
                 <th>Pantalla</th>
                 <th>Serial</th>
-                <th>Capacidad Memoria</th>
-                <th>Capacidad Disco</th>
+                <th>Cap. Mem1</th>
+                <th>Cap. Mem2</th>
+                <th>Cap. Disco1</th>
+                <th>Cap. Disco2</th>
                 <th>Cliente</th>
                 <th>Técnico</th>
                 <th>Fecha</th>
@@ -126,8 +128,7 @@ export default function ListPage() {
                 const fecha = (r[21] || '').toString().split('T')[0];
                 const sheetRowNumber = idx + 2; // because slice(1)
 
-                const capMem = ([r[7], r[9]].filter(isCapacity).join(', ') ) || '-';
-                const capDisc = ([r[11], r[13]].filter(isCapacity).join(', ') ) || '-';
+
 
                 return (
                 <tr key={idx} className="row-click">
@@ -138,8 +139,10 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[4] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[5] || '-'}</td>
 
-                  <td onClick={() => setSelected(r)}>{capMem}</td>
-                  <td onClick={() => setSelected(r)}>{capDisc}</td>
+                  <td onClick={() => setSelected(r)}>{r[7] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[9] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[11] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[13] || '-'}</td>
 
                   <td onClick={() => setSelected(r)}>{r[19] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[20] || '-'}</td>
