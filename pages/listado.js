@@ -112,9 +112,19 @@ export default function ListPage() {
                 <th>Modelo</th>
                 <th>Pantalla</th>
                 <th>Serial</th>
-                <th>Cap. Memoria</th>
-                <th>Cap. Disco</th>
+
+                <th>Memoria 1</th>
+                <th>Cap. Mem1</th>
+                <th>Memoria 2</th>
+                <th>Cap. Mem2</th>
+
+                <th>Disco 1</th>
+                <th>Cap. Disco1</th>
+                <th>Disco 2</th>
+                <th>Cap. Disco2</th>
+
                 <th>Cliente</th>
+                <th>Técnico</th>
                 <th>Fecha</th>
                 <th>Acción</th>
               </tr>
@@ -132,9 +142,19 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[3]}</td>
                   <td onClick={() => setSelected(r)}>{r[4]}</td>
                   <td onClick={() => setSelected(r)}>{r[5]}</td>
-                  <td onClick={() => setSelected(r)}>{([r[7], r[9]].filter(isCapacity).join(', ') ) || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{([r[11], r[13]].filter(isCapacity).join(', ') ) || '-'}</td>
+
+                  <td onClick={() => setSelected(r)}>{r[6]}</td>
+                  <td onClick={() => setSelected(r)}>{r[7]}</td>
+                  <td onClick={() => setSelected(r)}>{r[8]}</td>
+                  <td onClick={() => setSelected(r)}>{r[9]}</td>
+
+                  <td onClick={() => setSelected(r)}>{r[10]}</td>
+                  <td onClick={() => setSelected(r)}>{r[11]}</td>
+                  <td onClick={() => setSelected(r)}>{r[12]}</td>
+                  <td onClick={() => setSelected(r)}>{r[13]}</td>
+
                   <td onClick={() => setSelected(r)}>{r[19]}</td>
+                  <td onClick={() => setSelected(r)}>{r[20]}</td>
                   <td onClick={() => setSelected(r)}>{fecha}</td>
                   <td>
                     {status ? (
@@ -266,8 +286,10 @@ export default function ListPage() {
               <li><strong>Modelo:</strong> {selected[3]}</li>
               <li><strong>Monitor:</strong> {selected[4]}</li>
               <li><strong>Serial:</strong> {selected[5]}</li>
-              <li><strong>Memoria (capacidades):</strong> {([selected[7], selected[9]].filter(isCapacity).join(', ') ) || '-'}</li>
-              <li><strong>Disco (capacidades):</strong> {([selected[11], selected[13]].filter(isCapacity).join(', ') ) || '-'}</li>
+              <li><strong>Memoria 1:</strong> {selected[6] || '-' } (Cap: {selected[7] || '-'})</li>
+              <li><strong>Memoria 2:</strong> {selected[8] || '-' } (Cap: {selected[9] || '-'})</li>
+              <li><strong>Disco 1:</strong> {selected[10] || '-' } (Cap: {selected[11] || '-'})</li>
+              <li><strong>Disco 2:</strong> {selected[12] || '-' } (Cap: {selected[13] || '-'})</li>
               <li><strong>Cliente:</strong> {selected[19]}</li>
               <li><strong>Técnico:</strong> {selected[20]}</li>
               <li><strong>Fecha:</strong> {(selected[21]||'').toString().split('T')[0]}</li>
