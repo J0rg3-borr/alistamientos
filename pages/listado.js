@@ -108,13 +108,15 @@ export default function ListPage() {
               <tr>
                 <th>GLPI</th>
                 <th>Activo</th>
-                <th>Marca</th>
-                <th>Modelo</th>
                 <th>Pantalla</th>
                 <th>Serial</th>
+                <th>Mem1</th>
                 <th>Cap. Mem1</th>
+                <th>Mem2</th>
                 <th>Cap. Mem2</th>
+                <th>Disco1</th>
                 <th>Cap. Disco1</th>
+                <th>Disco2</th>
                 <th>Cap. Disco2</th>
                 <th>Cliente</th>
                 <th>Técnico</th>
@@ -138,16 +140,15 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[3] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[4] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[5] || '-'}</td>
-
+                  <td onClick={() => setSelected(r)}>{r[6] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[7] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[8] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[9] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[10] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[11] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[12] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[13] || '-'}</td>
-
-                  <td onClick={() => setSelected(r)}>{r[14] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[15] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{fecha}</td>
-
+                  <td>{fecha}</td>
                   <td>
                     {status ? (
                       <span style={{color:'#0b7a3d'}}>{status}</span>
