@@ -134,20 +134,22 @@ export default function ListPage() {
 
                 return (
                 <tr key={idx} className="row-click">
-                  <td onClick={() => setSelected(r)}>{r[0] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[1] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[2] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[3] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[4] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[5] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[6] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[7] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[8] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[9] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[10] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[11] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[12] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[13] || '-'}</td>
+                  <td>{r[0] || ''}</td>
+                  <td>{r[1] || ''}</td>
+                  <td>{r[2] || ''}</td>
+                  <td>{r[3] || ''}</td>
+                  <td>{r[4] || ''}</td>
+                  <td>{r[5] || ''}</td>
+                  <td>{r[6] || ''}</td>
+                  <td>{r[7] || ''}</td>
+                  <td>{r[8] || ''}</td>
+                  <td>{r[9] || ''}</td>
+                  <td>{r[10] || ''}</td>
+                  <td>{r[11] || ''}</td>
+                  <td>{r[12] || ''}</td>
+                  <td>{r[13] || ''}</td>
+                  <td>{r[14] || ''}</td>
+                  <td>{r[15] || ''}</td>
                   <td>{fecha}</td>
                   <td>
                     {status ? (
