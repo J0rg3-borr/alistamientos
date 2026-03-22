@@ -114,8 +114,8 @@ export default function Home() {
           <div className="row">
             <div className="col">
               <label>
-                Memoria 1
-                <input name="memoria1" value={form.memoria1} onChange={onChange} />
+                Activo memoria 1
+                <input name="Activo memoria 1" value={form.memoria1} onChange={onChange} />
               </label>
               <label>
                 Capacidad Memoria 1
@@ -124,8 +124,8 @@ export default function Home() {
             </div>
             <div className="col">
               <label>
-                Memoria 2
-                <input name="memoria2" value={form.memoria2} onChange={onChange} />
+                Activo memoria 2
+                <input name="Activo memoria 2" value={form.memoria2} onChange={onChange} />
               </label>
               <label>
                 Capacidad Memoria 2
