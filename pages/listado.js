@@ -103,14 +103,11 @@ export default function ListPage() {
         ) : rows.length === 0 ? (
           <div>No hay registros.</div>
         ) : (
-          <div className="table-wrapper">
-            <table className="alist-table">
+          <table className="alist-table">
             <thead>
               <tr>
                 <th>GLPI</th>
                 <th>Activo</th>
-                <th>Marca</th>
-                <th>Modelo</th>
                 <th>Pantalla</th>
                 <th>Serial</th>
                 <th>Mem1</th>
@@ -129,7 +126,7 @@ export default function ListPage() {
             </thead>
             <tbody>
               {rows.slice(1).map((r, idx) => {
-                const status = r[17] || '';
+                const status = r[18] || '';
                 const fecha = (r[16] || '').toString().split('T')[0];
                 const sheetRowNumber = idx + 2; // because slice(1)
 
@@ -137,22 +134,20 @@ export default function ListPage() {
 
                 return (
                 <tr key={idx} className="row-click">
-                  <td>{r[0] || '-'}</td>
-                  <td>{r[1] || '-'}</td>
-                  <td>{r[2] || '-'}</td>
-                  <td>{r[3] || '-'}</td>
-                  <td>{r[4] || '-'}</td>
-                  <td>{r[5] || '-'}</td>
-                  <td>{r[6] || '-'}</td>
-                  <td>{r[7] || '-'}</td>
-                  <td>{r[8] || '-'}</td>
-                  <td>{r[9] || '-'}</td>
-                  <td>{r[10] || '-'}</td>
-                  <td>{r[11] || '-'}</td>
-                  <td>{r[12] || '-'}</td>
-                  <td>{r[13] || '-'}</td>
-                  <td>{r[14] || '-'}</td>
-                  <td>{r[15] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[0] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[1] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[2] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[3] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[4] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[5] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[6] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[7] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[8] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[9] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[10] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[11] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[12] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[13] || '-'}</td>
                   <td>{fecha}</td>
                   <td>
                     {status ? (
@@ -168,7 +163,7 @@ export default function ListPage() {
                               body: JSON.stringify({ row: sheetRowNumber })
                             });
                             if (res.ok) {
-                              // Remover la fila del listado sin volver a aparecer
+                              // Remover la fila del listado (sin borrar de Google Sheets)
                               const newRows = rows.filter((_, i) => i !== idx + 1);
                               setRows(newRows);
                             } else {
@@ -189,7 +184,6 @@ export default function ListPage() {
             })}
             </tbody>
           </table>
-          </div>
         )}
 
 
@@ -291,7 +285,6 @@ export default function ListPage() {
               <li><strong>Disco 2:</strong> {selected[12] || '-' } (Cap: {selected[13] || '-'})</li>
               <li><strong>Cliente:</strong> {selected[14]}</li>
               <li><strong>Técnico:</strong> {selected[15]}</li>
-              <li><strong>Estado (R):</strong> {selected[17] || '-'}</li>
               <li><strong>Fecha:</strong> {(selected[16]||'').toString().split('T')[0]}</li>
             </ul>
             <div style={{marginTop:12}}>
