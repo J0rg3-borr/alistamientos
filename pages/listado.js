@@ -115,7 +115,6 @@ export default function ListPage() {
                 <th>Serial</th>
                 <th>Cliente</th>
                 <th>Técnico</th>
-                <th>Estado (R)</th>
                 <th>Fecha</th>
                 <th>Acción</th>
               </tr>
@@ -138,7 +137,6 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[5] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[14] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[15] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{status || '-'}</td>
                   <td>{fecha}</td>
                   <td>
                     {status ? (
@@ -154,7 +152,7 @@ export default function ListPage() {
                               body: JSON.stringify({ row: sheetRowNumber })
                             });
                             if (res.ok) {
-                              // Remover la fila del listado (sin borrar de Google Sheets)
+                              // Remover la fila del listado sin volver a aparecer
                               const newRows = rows.filter((_, i) => i !== idx + 1);
                               setRows(newRows);
                             } else {
