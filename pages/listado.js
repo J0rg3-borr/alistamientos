@@ -71,9 +71,12 @@ export default function ListPage() {
       });
       if (res.ok) {
         alert('Actualizado correctamente');
-        // Remover la fila del listado sin volver a aparecer
-        const newRows = rows.filter((_, i) => i !== selectedRowIndex + 1);
-        setRows(newRows);
+        // Refrescar listado desde el servidor
+        try {
+          const r2 = await fetch('/api/list');
+          const j2 = await r2.json();
+          if (r2.ok) setRows(j2.rows || []);
+        } catch (e) { console.error(e); }
         setSelected(null);
         setEditForm(null);
       } else {
@@ -271,6 +274,29 @@ export default function ListPage() {
                 <button type="button" onClick={() => { setEditForm(null); setSelected(null); }}>Cancelar</button>
               </div>
             </form>
+          </div>
+        ) : selected ? (
+          <div className="detail">
+            <h3>Detalle</h3>
+            <ul>
+              <li><strong>GLPI:</strong> {selected[0]}</li>
+              <li><strong>Activo:</strong> {selected[1]}</li>
+              <li><strong>Marca:</strong> {selected[2]}</li>
+              <li><strong>Modelo:</strong> {selected[3]}</li>
+              <li><strong>Monitor:</strong> {selected[4]}</li>
+              <li><strong>Serial:</strong> {selected[5]}</li>
+              <li><strong>Memoria 1:</strong> {selected[6] || '-' } (Cap: {selected[7] || '-'})</li>
+              <li><strong>Memoria 2:</strong> {selected[8] || '-' } (Cap: {selected[9] || '-'})</li>
+              <li><strong>Disco 1:</strong> {selected[10] || '-' } (Cap: {selected[11] || '-'})</li>
+              <li><strong>Disco 2:</strong> {selected[12] || '-' } (Cap: {selected[13] || '-'})</li>
+              <li><strong>Cliente:</strong> {selected[14]}</li>
+              <li><strong>Técnico:</strong> {selected[15]}</li>
+              <li><strong>Estado (R):</strong> {selected[17] || '-'}</li>
+              <li><strong>Fecha:</strong> {(selected[16]||'').toString().split('T')[0]}</li>
+            </ul>
+            <div style={{marginTop:12}}>
+              <button onClick={() => { setSelected(null); setEditForm(null); }}>Cerrar</button>
+            </div>
           </div>
         ) : null}
       </div>
