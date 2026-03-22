@@ -108,6 +108,8 @@ export default function ListPage() {
               <tr>
                 <th>GLPI</th>
                 <th>Activo</th>
+                <th>Marca</th>
+                <th>Modelo</th>
                 <th>Pantalla</th>
                 <th>Serial</th>
                 <th>Mem1</th>
@@ -148,6 +150,8 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[11] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[12] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[13] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[14] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{r[15] || '-'}</td>
                   <td>{fecha}</td>
                   <td>
                     {status ? (
