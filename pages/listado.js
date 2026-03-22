@@ -103,7 +103,8 @@ export default function ListPage() {
         ) : rows.length === 0 ? (
           <div>No hay registros.</div>
         ) : (
-          <table className="alist-table">
+          <div className="table-wrapper">
+            <table className="alist-table">
             <thead>
               <tr>
                 <th>GLPI</th>
@@ -112,23 +113,16 @@ export default function ListPage() {
                 <th>Modelo</th>
                 <th>Pantalla</th>
                 <th>Serial</th>
-                <th>Mem1</th>
-                <th>Cap. Mem1</th>
-                <th>Mem2</th>
-                <th>Cap. Mem2</th>
-                <th>Disco1</th>
-                <th>Cap. Disco1</th>
-                <th>Disco2</th>
-                <th>Cap. Disco2</th>
                 <th>Cliente</th>
                 <th>Técnico</th>
+                <th>Estado (R)</th>
                 <th>Fecha</th>
                 <th>Acción</th>
               </tr>
             </thead>
             <tbody>
               {rows.slice(1).map((r, idx) => {
-                const status = r[18] || '';
+                const status = r[17] || '';
                 const fecha = (r[16] || '').toString().split('T')[0];
                 const sheetRowNumber = idx + 2; // because slice(1)
 
@@ -142,16 +136,9 @@ export default function ListPage() {
                   <td onClick={() => setSelected(r)}>{r[3] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[4] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[5] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[6] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[7] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[8] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[9] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[10] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[11] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[12] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[13] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[14] || '-'}</td>
                   <td onClick={() => setSelected(r)}>{r[15] || '-'}</td>
+                  <td onClick={() => setSelected(r)}>{status || '-'}</td>
                   <td>{fecha}</td>
                   <td>
                     {status ? (
@@ -188,6 +175,7 @@ export default function ListPage() {
             })}
             </tbody>
           </table>
+          </div>
         )}
 
 
@@ -289,6 +277,7 @@ export default function ListPage() {
               <li><strong>Disco 2:</strong> {selected[12] || '-' } (Cap: {selected[13] || '-'})</li>
               <li><strong>Cliente:</strong> {selected[14]}</li>
               <li><strong>Técnico:</strong> {selected[15]}</li>
+              <li><strong>Estado (R):</strong> {selected[17] || '-'}</li>
               <li><strong>Fecha:</strong> {(selected[16]||'').toString().split('T')[0]}</li>
             </ul>
             <div style={{marginTop:12}}>
