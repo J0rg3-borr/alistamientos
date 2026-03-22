@@ -71,12 +71,9 @@ export default function ListPage() {
       });
       if (res.ok) {
         alert('Actualizado correctamente');
-        // Refrescar listado desde el servidor
-        try {
-          const r2 = await fetch('/api/list');
-          const j2 = await r2.json();
-          if (r2.ok) setRows(j2.rows || []);
-        } catch (e) { console.error(e); }
+        // Remover la fila del listado sin volver a aparecer
+        const newRows = rows.filter((_, i) => i !== selectedRowIndex + 1);
+        setRows(newRows);
         setSelected(null);
         setEditForm(null);
       } else {
@@ -113,6 +110,14 @@ export default function ListPage() {
                 <th>Modelo</th>
                 <th>Pantalla</th>
                 <th>Serial</th>
+                <th>Mem1</th>
+                <th>Cap. Mem1</th>
+                <th>Mem2</th>
+                <th>Cap. Mem2</th>
+                <th>Disco1</th>
+                <th>Cap. Disco1</th>
+                <th>Disco2</th>
+                <th>Cap. Disco2</th>
                 <th>Cliente</th>
                 <th>Técnico</th>
                 <th>Fecha</th>
@@ -129,14 +134,22 @@ export default function ListPage() {
 
                 return (
                 <tr key={idx} className="row-click">
-                  <td onClick={() => setSelected(r)}>{r[0] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[1] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[2] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[3] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[4] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[5] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[14] || '-'}</td>
-                  <td onClick={() => setSelected(r)}>{r[15] || '-'}</td>
+                  <td>{r[0] || '-'}</td>
+                  <td>{r[1] || '-'}</td>
+                  <td>{r[2] || '-'}</td>
+                  <td>{r[3] || '-'}</td>
+                  <td>{r[4] || '-'}</td>
+                  <td>{r[5] || '-'}</td>
+                  <td>{r[6] || '-'}</td>
+                  <td>{r[7] || '-'}</td>
+                  <td>{r[8] || '-'}</td>
+                  <td>{r[9] || '-'}</td>
+                  <td>{r[10] || '-'}</td>
+                  <td>{r[11] || '-'}</td>
+                  <td>{r[12] || '-'}</td>
+                  <td>{r[13] || '-'}</td>
+                  <td>{r[14] || '-'}</td>
+                  <td>{r[15] || '-'}</td>
                   <td>{fecha}</td>
                   <td>
                     {status ? (
@@ -258,29 +271,6 @@ export default function ListPage() {
                 <button type="button" onClick={() => { setEditForm(null); setSelected(null); }}>Cancelar</button>
               </div>
             </form>
-          </div>
-        ) : selected ? (
-          <div className="detail">
-            <h3>Detalle</h3>
-            <ul>
-              <li><strong>GLPI:</strong> {selected[0]}</li>
-              <li><strong>Activo:</strong> {selected[1]}</li>
-              <li><strong>Marca:</strong> {selected[2]}</li>
-              <li><strong>Modelo:</strong> {selected[3]}</li>
-              <li><strong>Monitor:</strong> {selected[4]}</li>
-              <li><strong>Serial:</strong> {selected[5]}</li>
-              <li><strong>Memoria 1:</strong> {selected[6] || '-' } (Cap: {selected[7] || '-'})</li>
-              <li><strong>Memoria 2:</strong> {selected[8] || '-' } (Cap: {selected[9] || '-'})</li>
-              <li><strong>Disco 1:</strong> {selected[10] || '-' } (Cap: {selected[11] || '-'})</li>
-              <li><strong>Disco 2:</strong> {selected[12] || '-' } (Cap: {selected[13] || '-'})</li>
-              <li><strong>Cliente:</strong> {selected[14]}</li>
-              <li><strong>Técnico:</strong> {selected[15]}</li>
-              <li><strong>Estado (R):</strong> {selected[17] || '-'}</li>
-              <li><strong>Fecha:</strong> {(selected[16]||'').toString().split('T')[0]}</li>
-            </ul>
-            <div style={{marginTop:12}}>
-              <button onClick={() => { setSelected(null); setEditForm(null); }}>Cerrar</button>
-            </div>
           </div>
         ) : null}
       </div>
