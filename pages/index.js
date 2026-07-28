@@ -63,7 +63,7 @@ export default function Home() {
 
   return (
     <main className="container">
-      <h1 style={{color:'var(--accent)'}}>Dashboard - Listado de equipos</h1>
+      <h1 style={{color:'var(--accent)'}}>Alistamientos de equipos</h1>
       <div className="tabs">
         <a className="tab active">Formulario</a>
         <Link href="/listado"><a className="tab">Listado</a></Link>
