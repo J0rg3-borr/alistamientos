@@ -5,8 +5,6 @@ export default function ListPage() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
-  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
-  const [editForm, setEditForm] = useState(null);
 
   useEffect(() => {
     async function load() {
@@ -24,69 +22,20 @@ export default function ListPage() {
     load();
   }, []);
 
-  function handleEditClick(row, idx) {
+  function getFecha(value) {
+    return (value || '').toString().split('T')[0] || '-';
+  }
+
+  function getCellValue(row, index) {
+    return row?.[index] || '-';
+  }
+
+  function openDetail(row) {
     setSelected(row);
-    setSelectedRowIndex(idx);
-    setEditForm({
-      glpi: row[0] || '',
-      activo: row[1] || '',
-      marca: row[2] || '',
-      modelo: row[3] || '',
-      pantalla: row[4] || '',
-      numeroSerie: row[5] || '',
-      memoria1: row[6] || '',
-      memoria1_capacidad: row[7] || '',
-      memoria2: row[8] || '',
-      memoria2_capacidad: row[9] || '',
-      disco1: row[10] || '',
-      disco1_capacidad: row[11] || '',
-      disco2: row[12] || '',
-      disco2_capacidad: row[13] || '',
-      cliente: row[14] || '',
-      tecnico: row[15] || ''
-    });
   }
 
-  function handleEditChange(field, value) {
-    setEditForm({ ...editForm, [field]: value });
-  }
-
-  // Detecta si un valor parece ser una capacidad (contiene dígitos) para evitar mostrar nombres en la columna de capacidades
-  function isCapacity(val) {
-    if (!val && val !== 0) return false;
-    try {
-      return /\d/.test(String(val));
-    } catch (e) {
-      return false;
-    }
-  }
-
-  async function handleSaveEdit() {
-    try {
-      const sheetRowNumber = selectedRowIndex + 2;
-      const res = await fetch('/api/actualizar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ row: sheetRowNumber, ...editForm })
-      });
-      if (res.ok) {
-        alert('Actualizado correctamente');
-        // Refrescar listado desde el servidor
-        try {
-          const r2 = await fetch('/api/list');
-          const j2 = await r2.json();
-          if (r2.ok) setRows(j2.rows || []);
-        } catch (e) { console.error(e); }
-        setSelected(null);
-        setEditForm(null);
-      } else {
-        const j = await res.json();
-        alert('Error actualizando: ' + (j.error || res.statusText));
-      }
-    } catch (e) {
-      console.error(e);
-      alert('Error de red: ' + e.message);
-    }
+  function closeDetail() {
+    setSelected(null);
   }
 
   return (
@@ -110,14 +59,6 @@ export default function ListPage() {
                 <th>Activo</th>
                 <th>Pantalla</th>
                 <th>Serial</th>
-                <th>Mem1</th>
-                <th>Cap. Mem1</th>
-                <th>Mem2</th>
-                <th>Cap. Mem2</th>
-                <th>Disco1</th>
-                <th>Cap. Disco1</th>
-                <th>Disco2</th>
-                <th>Cap. Disco2</th>
                 <th>Cliente</th>
                 <th>Técnico</th>
                 <th>Fecha</th>
@@ -126,171 +67,59 @@ export default function ListPage() {
             </thead>
             <tbody>
               {rows.slice(1).map((r, idx) => {
-                const status = r[18] || '';
-                const fecha = (r[16] || '').toString().split('T')[0];
-                const sheetRowNumber = idx + 2; // because slice(1)
-
-
+                const fecha = getFecha(r[16]);
 
                 return (
-                <tr key={idx} className="row-click">
-                  <td>{r[0] || ''}</td>
-                  <td>{r[1] || ''}</td>
-                  <td>{r[2] || ''}</td>
-                  <td>{r[3] || ''}</td>
-                  <td>{r[4] || ''}</td>
-                  <td>{r[5] || ''}</td>
-                  <td>{r[6] || ''}</td>
-                  <td>{r[7] || ''}</td>
-                  <td>{r[8] || ''}</td>
-                  <td>{r[9] || ''}</td>
-                  <td>{r[10] || ''}</td>
-                  <td>{r[11] || ''}</td>
-                  <td>{r[12] || ''}</td>
-                  <td>{r[13] || ''}</td>
-                  <td>{r[14] || ''}</td>
-                  <td>{r[15] || ''}</td>
-                  <td>{fecha}</td>
-                  <td>
-                    {status ? (
-                      <span style={{color:'#0b7a3d'}}>{status}</span>
-                    ) : (
-                      <div style={{display:'flex', gap:'6px'}}>
-                        <button className="small" onClick={() => handleEditClick(r, idx)}>Editar</button>
-                        <button className="small" onClick={async () => {
-                          try {
-                            const res = await fetch('/api/marcar-listo', {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify({ row: sheetRowNumber })
-                            });
-                            if (res.ok) {
-                              // Remover la fila del listado (sin borrar de Google Sheets)
-                              const newRows = rows.filter((_, i) => i !== idx + 1);
-                              setRows(newRows);
-                            } else {
-                              const j = await res.json();
-                              console.error(j);
-                              alert('Error marcando como listo: '+(j.error||res.statusText));
-                            }
-                          } catch (e) {
-                            console.error(e);
-                            alert('Error de red');
-                          }
-                        }}>Listo</button>
-                      </div>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+                  <tr key={idx} className="row-click">
+                    <td>{getCellValue(r, 0)}</td>
+                    <td>{getCellValue(r, 1)}</td>
+                    <td>{getCellValue(r, 4)}</td>
+                    <td>{getCellValue(r, 5)}</td>
+                    <td>{getCellValue(r, 14)}</td>
+                    <td>{getCellValue(r, 15)}</td>
+                    <td>{fecha}</td>
+                    <td>
+                      <button className="small" onClick={() => openDetail(r)}>Detalle</button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
 
 
-        {editForm ? (
+        {selected ? (
           <div className="detail">
-            <h3>Editar Equipo</h3>
-            <form style={{display:'grid', gap:'8px'}}>
-              <label>
-                GLPI
-                <input type="text" value={editForm.glpi} onChange={(e) => handleEditChange('glpi', e.target.value)} />
-              </label>
-              <label>
-                Activo
-                <input type="text" value={editForm.activo} onChange={(e) => handleEditChange('activo', e.target.value)} />
-              </label>
-              <label>
-                Marca
-                <input type="text" value={editForm.marca || ''} onChange={(e) => handleEditChange('marca', e.target.value)} />
-              </label>
-              <label>
-                Modelo
-                <input type="text" value={editForm.modelo || ''} onChange={(e) => handleEditChange('modelo', e.target.value)} />
-              </label>
-              <label>
-                Monitor
-                <input type="text" value={editForm.pantalla} onChange={(e) => handleEditChange('pantalla', e.target.value)} />
-              </label>
-              <label>
-                Serial
-                <input type="text" value={editForm.numeroSerie} onChange={(e) => handleEditChange('numeroSerie', e.target.value)} />
-              </label>
-              <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'8px'}}>
-                <label>
-                  Memoria 1
-                  <input type="text" value={editForm.memoria1} onChange={(e) => handleEditChange('memoria1', e.target.value)} />
-                </label>
-                <label>
-                  Cap. Mem 1
-                  <input type="text" value={editForm.memoria1_capacidad} onChange={(e) => handleEditChange('memoria1_capacidad', e.target.value)} />
-                </label>
-              </div>
-              <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'8px'}}>
-                <label>
-                  Memoria 2
-                  <input type="text" value={editForm.memoria2} onChange={(e) => handleEditChange('memoria2', e.target.value)} />
-                </label>
-                <label>
-                  Cap. Mem 2
-                  <input type="text" value={editForm.memoria2_capacidad} onChange={(e) => handleEditChange('memoria2_capacidad', e.target.value)} />
-                </label>
-              </div>
-              <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'8px'}}>
-                <label>
-                  Disco 1
-                  <input type="text" value={editForm.disco1} onChange={(e) => handleEditChange('disco1', e.target.value)} />
-                </label>
-                <label>
-                  Cap. Disco 1
-                  <input type="text" value={editForm.disco1_capacidad} onChange={(e) => handleEditChange('disco1_capacidad', e.target.value)} />
-                </label>
-              </div>
-              <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'8px'}}>
-                <label>
-                  Disco 2
-                  <input type="text" value={editForm.disco2} onChange={(e) => handleEditChange('disco2', e.target.value)} />
-                </label>
-                <label>
-                  Cap. Disco 2
-                  <input type="text" value={editForm.disco2_capacidad} onChange={(e) => handleEditChange('disco2_capacidad', e.target.value)} />
-                </label>
-              </div>
-              <label>
-                Cliente
-                <input type="text" value={editForm.cliente} onChange={(e) => handleEditChange('cliente', e.target.value)} />
-              </label>
-              <label>
-                Técnico
-                <input type="text" value={editForm.tecnico} onChange={(e) => handleEditChange('tecnico', e.target.value)} />
-              </label>
-              <div style={{marginTop:12, display:'flex', gap:'8px'}}>
-                <button type="button" onClick={handleSaveEdit}>Guardar cambios</button>
-                <button type="button" onClick={() => { setEditForm(null); setSelected(null); }}>Cancelar</button>
-              </div>
-            </form>
-          </div>
-        ) : selected ? (
-          <div className="detail">
-            <h3>Detalle</h3>
-            <ul>
-              <li><strong>GLPI:</strong> {selected[0]}</li>
-              <li><strong>Activo:</strong> {selected[1]}</li>
-              <li><strong>Marca:</strong> {selected[2]}</li>
-              <li><strong>Modelo:</strong> {selected[3]}</li>
-              <li><strong>Monitor:</strong> {selected[4]}</li>
-              <li><strong>Serial:</strong> {selected[5]}</li>
-              <li><strong>Memoria 1:</strong> {selected[6] || '-' } (Cap: {selected[7] || '-'})</li>
-              <li><strong>Memoria 2:</strong> {selected[8] || '-' } (Cap: {selected[9] || '-'})</li>
-              <li><strong>Disco 1:</strong> {selected[10] || '-' } (Cap: {selected[11] || '-'})</li>
-              <li><strong>Disco 2:</strong> {selected[12] || '-' } (Cap: {selected[13] || '-'})</li>
-              <li><strong>Cliente:</strong> {selected[14]}</li>
-              <li><strong>Técnico:</strong> {selected[15]}</li>
-              <li><strong>Fecha:</strong> {(selected[16]||'').toString().split('T')[0]}</li>
-            </ul>
+            <h3>Detalle del equipo</h3>
+            <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:'12px'}}>
+              {[
+                ['GLPI', selected[0]],
+                ['Activo', selected[1]],
+                ['Marca', selected[2]],
+                ['Modelo', selected[3]],
+                ['Pantalla', selected[4]],
+                ['Serial', selected[5]],
+                ['Memoria 1', selected[6]],
+                ['Capacidad Memoria 1', selected[7]],
+                ['Memoria 2', selected[8]],
+                ['Capacidad Memoria 2', selected[9]],
+                ['Disco 1', selected[10]],
+                ['Capacidad Disco 1', selected[11]],
+                ['Disco 2', selected[12]],
+                ['Capacidad Disco 2', selected[13]],
+                ['Cliente', selected[14]],
+                ['Técnico', selected[15]],
+                ['Fecha', getFecha(selected[16])]
+              ].map(([label, value]) => (
+                <div key={label} style={{background:'#f8fafc', border:'1px solid #e5e7eb', borderRadius:'8px', padding:'10px 12px'}}>
+                  <div style={{fontSize:'12px', color:'#6b7280', textTransform:'uppercase', letterSpacing:'0.04em'}}>{label}</div>
+                  <div style={{fontWeight:600, color:'#111827', marginTop:'4px'}}>{value || '-'}</div>
+                </div>
+              ))}
+            </div>
             <div style={{marginTop:12}}>
-              <button onClick={() => { setSelected(null); setEditForm(null); }}>Cerrar</button>
+              <button onClick={closeDetail}>Cerrar</button>
             </div>
           </div>
         ) : null}
