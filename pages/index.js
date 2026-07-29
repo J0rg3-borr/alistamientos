@@ -119,7 +119,13 @@ export default function Home() {
               </label>
               <label>
                 Capacidad Memoria 1
-                <input name="memoria1_capacidad" value={form.memoria1_capacidad} onChange={onChange} />
+                <select name="memoria1_capacidad" value={form.memoria1_capacidad} onChange={onChange}>
+                  <option value="">-- Seleccionar --</option>
+                  <option value="4 GB">4 GB</option>
+                  <option value="8 GB">8 GB</option>
+                  <option value="16 GB">16 GB</option>
+                  <option value="32 GB">32 GB</option>
+                </select>
               </label>
             </div>
             <div className="col">
@@ -129,7 +135,13 @@ export default function Home() {
               </label>
               <label>
                 Capacidad Memoria 2
-                <input name="memoria2_capacidad" value={form.memoria2_capacidad} onChange={onChange} />
+                <select name="memoria2_capacidad" value={form.memoria2_capacidad} onChange={onChange}>
+                  <option value="">-- Seleccionar --</option>
+                  <option value="4 GB">4 GB</option>
+                  <option value="8 GB">8 GB</option>
+                  <option value="16 GB">16 GB</option>
+                  <option value="32 GB">32 GB</option>
+                </select>
               </label>
             </div>
           </div>
@@ -142,7 +154,13 @@ export default function Home() {
               </label>
               <label>
                 Capacidad Disco 1
-                <input name="disco1_capacidad" value={form.disco1_capacidad} onChange={onChange} />
+                <select name="disco1_capacidad" value={form.disco1_capacidad} onChange={onChange}>
+                  <option value="">-- Seleccionar --</option>
+                  <option value="256 GB">256 GB</option>
+                  <option value="480 GB">480 GB</option>
+                  <option value="512 GB">512 GB</option>
+                  <option value="1 TB">1 TB</option>
+                </select>
               </label>
             </div>
             <div className="col">
@@ -152,7 +170,13 @@ export default function Home() {
               </label>
               <label>
                 Capacidad Disco 2
-                <input name="disco2_capacidad" value={form.disco2_capacidad} onChange={onChange} />
+                <select name="disco2_capacidad" value={form.disco2_capacidad} onChange={onChange}>
+                  <option value="">-- Seleccionar --</option>
+                  <option value="256 GB">256 GB</option>
+                  <option value="480 GB">480 GB</option>
+                  <option value="512 GB">512 GB</option>
+                  <option value="1 TB">1 TB</option>
+                </select>
               </label>
             </div>
           </div>
@@ -170,7 +194,7 @@ export default function Home() {
           </label>
 
           <div className="actions">
-            <button type="submit">Guardar en listamiento</button>
+            <button type="submit">Guardar en alistamiento</button>
           </div>
         </form>
 

@@ -79,7 +79,28 @@ export default function ListPage() {
                     <td>{getCellValue(r, 15)}</td>
                     <td>{fecha}</td>
                     <td>
-                      <button className="small" onClick={() => openDetail(r)}>Detalle</button>
+                      <div style={{display:'flex', gap:'6px', flexWrap:'wrap'}}>
+                        <button className="small" onClick={() => openDetail(r)}>Detalle</button>
+                        <button className="small" onClick={async () => {
+                          try {
+                            const res = await fetch('/api/marcar-listo', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ row: idx + 2 })
+                            });
+                            if (res.ok) {
+                              setRows((prev) => prev.filter((_, i) => i !== idx + 1));
+                            } else {
+                              const j = await res.json();
+                              console.error(j);
+                              alert('Error marcando como listo: ' + (j.error || res.statusText));
+                            }
+                          } catch (e) {
+                            console.error(e);
+                            alert('Error de red');
+                          }
+                        }}>Listo</button>
+                      </div>
                     </td>
                   </tr>
                 );
